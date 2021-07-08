@@ -1,6 +1,6 @@
 {
   "name": "@talentticker/pretty-decent-editor",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "a pretty decent editor",
   "main": "./dist/pretty-decent-editor.umd.js",
   "module": "./dist/pretty-decent-editor.es.js",
@@ -44,6 +44,7 @@
   "dependencies": {
     "@tippyjs/react": "^4.2.5",
     "escape-html": "^1.0.3",
+    "framer-motion": "^4.1.17",
     "is-hotkey": "^0.2.0",
     "react-hot-toast": "^2.0.0",
     "react-image-file-resizer": "^0.4.7",
@@ -53,8 +54,7 @@
     "slate-history": "^0.62.0",
     "slate-hyperscript": "^0.62.0",
     "slate-react": "^0.65.2",
-    "uuid": "^8.3.2",
-    "framer-motion": "^4.1.17"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.14.7",
