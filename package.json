@@ -2,7 +2,7 @@
   "name": "@talentticker/pretty-decent-editor",
   "version": "0.0.1",
   "description": "a pretty decent editor",
-  "main": "lib/index.js",
+  "main": "lib/src/index.js",
   "repository": "git@github.com:talentticker/pretty-decent-editor.git",
   "author": "Morgan Parry <m.parry@talentticker.ai>",
   "license": "MIT",
