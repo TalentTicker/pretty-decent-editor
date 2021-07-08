@@ -12,4 +12,30 @@ export default defineConfig({
             plugins: path.resolve(__dirname, './src/plugins'),
         },
     },
+    json: {
+        namedExports: true,
+    },
+    optimizeDeps: {
+        entries: ['src/components/**/*', 'src/hooks/**/*', 'src/utils'],
+    },
+    build: {
+        lib: {
+            entry: path.resolve(__dirname, 'src/index.ts'),
+            name: 'PrettyDecentEditor',
+        },
+        rollupOptions: {
+            external: ['react', 'react-dom', 'styled-components', 'framer-motion', 'react-icons'],
+            output: {
+                // Provide global variables to use in the UMD build
+                // for externalized deps
+                globals: {
+                    react: 'React',
+                    'react-dom': 'ReactDOM',
+                    'styled-components': 'styled',
+                    'framer-motion': 'framer',
+                    'react-icons': 'react-icons',
+                },
+            },
+        },
+    },
 });

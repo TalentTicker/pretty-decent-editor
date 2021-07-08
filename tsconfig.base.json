@@ -16,14 +16,13 @@
       "moduleResolution": "Node",
       "resolveJsonModule": true,
       "isolatedModules": true,
-      "noEmit": true,
       "sourceMap": false,
       "declaration": true,
       "baseUrl": "./src",
       "rootDir": "./src",
       "jsx": "react",
       "typeRoots": [
-        "../node_modules/@types",
+        "node_modules/@types",
         "./src/slate.d.ts"
       ]
     }
