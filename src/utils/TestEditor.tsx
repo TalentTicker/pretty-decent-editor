@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { createEditor } from 'slate';
 import { withReact, Slate } from 'slate-react';
-import { PrettyDecentElement } from '../../slate';
+import { PrettyDecentElement } from '../pretty';
 
 export const PrettyDecentTestEditor = ({ children }: { children: JSX.Element }): JSX.Element => {
     const editor = useMemo(() => withReact(createEditor()), []);

@@ -8,7 +8,7 @@ import {
     PrettyDecentElement,
     PrettyDecentFile,
     PrettyDecentToolbarOption,
-} from '../../../slate';
+} from '../../pretty';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
 import { PrettyDecentLeafs } from './leafs';
 import { withTables } from 'plugins/withTables';

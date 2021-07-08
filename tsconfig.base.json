@@ -20,11 +20,11 @@
       "sourceMap": false,
       "declaration": true,
       "baseUrl": "./src",
-      "rootDir": ".",
+      "rootDir": "./src",
       "jsx": "react",
       "typeRoots": [
-        "node_modules/@types",
-        "slate.d.ts"
+        "../node_modules/@types",
+        "./src/slate.d.ts"
       ]
     }
   }

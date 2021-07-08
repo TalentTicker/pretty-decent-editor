@@ -14,8 +14,6 @@ jobs:
                   registry-url: 'https://npm.pkg.github.com'
             - name: Install
               run: yarn install
-            - name: Build
-              run: yarn release
             - name: Publish
               run: yarn publish
               env:

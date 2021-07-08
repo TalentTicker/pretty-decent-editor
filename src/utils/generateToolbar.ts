@@ -1,4 +1,4 @@
-import { PrettyDecentToolbarOption } from '../../slate';
+import { PrettyDecentToolbarOption } from '../pretty';
 import { toolbarConfig } from './toolbarConfig';
 
 const findConfig = (option: PrettyDecentToolbarOption) => {

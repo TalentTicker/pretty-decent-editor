@@ -14,7 +14,7 @@ import {
     BiUnderline,
 } from 'react-icons/bi';
 import { v4 as uuid } from 'uuid';
-import { PrettyDecentButtonTypes, PrettyDecentToolbarOption } from '../../slate';
+import { PrettyDecentButtonTypes, PrettyDecentToolbarOption } from '../pretty';
 
 export type PrettyDecentToolbarConfigOptions = {
     id: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import { PrettyDecentEditor } from './components/Editor';
+import '../src/index.css';
+import { PrettyDecentEditor } from '../src/components/Editor';
 
 ReactDOM.render(
     <React.StrictMode>

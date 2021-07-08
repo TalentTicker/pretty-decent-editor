@@ -4,12 +4,17 @@
     "noEmit": false,
     "outDir": "./lib",
     "importHelpers": true,
+    "target": "es5",
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "downlevelIteration": true
    },
     "include": [
       "./src/index.ts"
     ],
     "exclude": [
       "node_modules",
-      "**/*.test.*"
+      "**/*.test.*",
+      "lib"
     ]
   }

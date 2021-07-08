@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { PrettyDecentFile } from '../../../../../slate';
+import { PrettyDecentFile } from '../../../../pretty';
 
 export type PrettyDecentAttachmentContextType = {
     attachments: PrettyDecentFile[];

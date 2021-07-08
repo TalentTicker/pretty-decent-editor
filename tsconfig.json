@@ -3,9 +3,10 @@
   "include": [
     "src/index.ts",
     "./src",
-    "slate.d.ts",
+    "src/slate.d.ts", "example/App.tsx",
   ],
   "exclude": [
     "node_modules",
+    "lib"
   ]
 }

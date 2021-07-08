@@ -5,7 +5,7 @@ import { MdClose } from 'react-icons/md';
 import { useCallback } from 'react';
 import Tippy from '@tippyjs/react';
 import { usePrettyDecentProps } from 'components/Editor/hooks/hook';
-import { PrettyDecentFile } from '../../../../../slate';
+import { PrettyDecentFile } from '../../../../pretty';
 import { AnimatePresence } from 'framer-motion';
 export const PrettyDecentAttachmentList = (): JSX.Element => {
     const { attachments, setAttachments } = usePrettyDecentAttachments();

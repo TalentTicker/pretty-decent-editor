@@ -1,6 +1,6 @@
 import { isMarkActive } from 'components/Editor/elements/PrettyDecentButton';
 import { Editor } from 'slate';
-import { PrettyDecentEditor, PrettyDecentMarkTypes } from '../../slate';
+import { PrettyDecentEditor, PrettyDecentMarkTypes } from '../pretty';
 
 const toggleMark = (editor: PrettyDecentEditor, mark: PrettyDecentMarkTypes) => {
     const isActive = isMarkActive(editor, mark);

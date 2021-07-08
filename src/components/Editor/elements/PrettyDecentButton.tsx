@@ -9,7 +9,7 @@ import {
     PrettyDecentMarkTypes,
     PrettyDecentElement,
     PrettyDecentChildren,
-} from '../../../../slate';
+} from '../../../pretty';
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
 type StyledBtnProps = {

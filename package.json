@@ -1,32 +1,46 @@
 {
   "name": "@talentticker/pretty-decent-editor",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "a pretty decent editor",
-  "main": "lib/src",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "repository": "git@github.com:talentticker/pretty-decent-editor.git",
   "author": "Morgan Parry <m.parry@talentticker.ai>",
   "license": "MIT",
+  "files": [
+    "dist",
+    "src"
+  ],
   "private": false,
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "vite-build": "tsc && vite build",
     "serve": "vite preview",
-    "release": "rm -rf ./lib && tsc -p tsconfig.build.json",
     "test": "jest",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "build": "tsdx build",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
   },
   "release": {
     "branches": [
       "main"
     ]
   },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  },
   "dependencies": {
     "@tippyjs/react": "^4.2.5",
     "escape-html": "^1.0.3",
     "framer-motion": "^4.1.17",
     "is-hotkey": "^0.2.0",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
     "react-hot-toast": "^2.0.0",
     "react-icons": "^4.2.0",
     "react-image-file-resizer": "^0.4.7",
@@ -69,19 +83,20 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.24.0",
+    "husky": "^7.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.0.5",
     "prettier": "^2.3.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "semantic-release": "^17.4.4",
+    "size-limit": "^5.0.1",
     "stylelint-config-prettier": "^8.0.2",
     "ts-node": "^10.0.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.0",
     "typescript": "^4.3.2",
     "vite": "^2.3.8"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
