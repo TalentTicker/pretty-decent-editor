@@ -1,12 +1,13 @@
 {
    "extends": "./tsconfig.base.json",
    "compilerOptions": {
-    "noEmit": false,
-    "outDir": "./lib",
+     "noEmit": false,
+    "outDir": "./dist",
     "importHelpers": true,
     "target": "es5",
     "esModuleInterop": true,
     "module": "ESNext",
+    "emitDeclarationOnly": true,
     "downlevelIteration": true
    },
     "include": [
