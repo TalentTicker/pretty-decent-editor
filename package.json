@@ -1,6 +1,6 @@
 {
   "name": "@talentticker/pretty-decent-editor",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "a pretty decent editor",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     "serve": "vite preview",
     "test": "jest",
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-    "build": "tsdx build",
+    "build": "esbuild src/index.ts --bundle --minify --outfile=dist/index.js && tsc -p tsconfig.build.json",
     "prepare": "tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why"
