@@ -10,10 +10,12 @@ export const PrettyDecentImage = ({
     const selected = useSelected();
     const focused = useFocused();
     return (
-        <div {...attributes}>
+        <StyledImage {...attributes} selected={selected} focused={focused}>
+            <div contentEditable={false}>
+                <img src={element.url} />
+            </div>
             {children}
-            <StyledImage selected={selected} focused={focused} src={element.url} />
-        </div>
+        </StyledImage>
     );
 };
 
@@ -21,11 +23,11 @@ type StyledImageProps = {
     selected?: boolean;
     focused?: boolean;
 };
-export const StyledImage = styled.img<StyledImageProps>`
+export const StyledImage = styled.div<StyledImageProps>`
     ${({ selected, focused }) => css`
-        display: block;
-        max-width: 100%;
-        max-height: 20em;
-        box-shadow: ${selected && focused ? '0 0 0 2px blue;' : 'none'};
+        img {
+            box-shadow: ${selected && focused ? '0 0 0 2px blue;' : 'none'};
+            /* max-width: 100%; */
+        }
     `}
 `;

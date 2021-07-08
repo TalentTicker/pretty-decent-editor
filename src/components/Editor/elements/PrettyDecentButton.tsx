@@ -51,13 +51,13 @@ const LIST_TYPES = ['numbered-list', 'bulleted-list'];
 export const toggleBlock = (editor: PrettyDecentEditor, format: PrettyDecentBlockTypes): void => {
     const isActive = isBlockActive(editor, format);
     const isList = LIST_TYPES.includes(format);
-
+    const isImage = format === 'image';
     Transforms.unwrapNodes(editor, {
         match: (n) => LIST_TYPES.includes(!Editor.isEditor(n) && Element.isElement(n) ? n.type ?? '' : '' ?? ''),
         split: true,
     });
     const newProperties: Partial<PrettyDecentElement> = {
-        type: isActive ? 'paragraph' : isList ? 'list-item' : format,
+        type: isActive ? 'paragraph' : isList ? 'list-item' : isImage ? 'image' : format,
     };
     Transforms.setNodes(editor, newProperties);
 
@@ -89,7 +89,8 @@ export const PrettyDecentButton = forwardRef<HTMLButtonElement, PrettyDecentButt
 
         const isActive = checkActive(type);
 
-        const handleClick = () => {
+        const handleClick = (event: React.MouseEvent) => {
+            event.stopPropagation();
             if (!isActive && onClick) {
                 onClick();
                 ReactEditor.focus(editor);

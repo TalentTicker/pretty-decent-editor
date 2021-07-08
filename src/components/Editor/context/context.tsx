@@ -22,6 +22,12 @@ const initialContext: PrettyDecentPropContextType = {
             'image',
         ],
     },
+    themeProps: {
+        colors: {
+            primary: '#EF7436',
+            secondary: '#000',
+        },
+    },
     dispatch: undefined,
 };
 

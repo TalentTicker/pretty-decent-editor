@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled, { css } from 'styled-components';
+import styled, { css, DefaultTheme } from 'styled-components';
 
 export const StyledList = styled(motion.ul)`
     display: flex;
@@ -23,13 +23,11 @@ export const sharedAttachment = css`
     display: flex;
     height: 26px;
     align-items: center;
-    min-width: 200px;
-    max-width: 300px;
+    width: 100%;
     font-size: 12px;
     margin: 1px 4px 1px 0;
     padding: 4px 4px 4px 8px;
     opacity: 0;
-    justify-content: space-between;
     border-radius: 5px;
     background: #eee;
 
@@ -43,20 +41,60 @@ export const Attachment = styled(motion.li)`
     ${sharedAttachment}
 `;
 
-export const AttachmentAction = styled.button`
-    outline: none;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    :hover {
-        color: orange;
-        cursor: pointer;
+type AttachmentActionProps = {
+    theme: DefaultTheme;
+};
+
+const sharedActionCss = css`
+    ${({ theme }) => css`
+        outline: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        font-size: 16px;
+        color: ${theme.colors.primary};
+        justify-content: center;
+        :hover {
+            color: orange;
+            cursor: pointer;
+        }
+    `}
+`;
+export const AttachmentAction = styled.button<AttachmentActionProps>`
+    ${sharedActionCss}
+`;
+
+export const AttachmentIcon = styled.span<AttachmentActionProps>`
+    ${sharedActionCss}
+    font-size: 25px;
+
+    p {
+        @media (max-width: 470px) {
+            visibility: hidden;
+        }
+        font-weight: normal;
+        font-size: 14px;
+        margin: 0;
+        color: #292929;
     }
 `;
 
 export const AttachmentText = styled.p`
     white-space: nowrap;
     overflow: hidden;
+    color: #646464;
+    margin-right: 24px;
     text-overflow: ellipsis;
+`;
+
+export const AttachmentActionContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
+export const AttachmentIconContainer = styled.div`
+    display: flex;
+    flex: 1;
 `;

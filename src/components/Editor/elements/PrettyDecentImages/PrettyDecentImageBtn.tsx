@@ -9,6 +9,7 @@ export const PrettyDecentImageBtn = ({ children, ...props }: PrettyDecentButtonP
     const ref = useRef<HTMLInputElement>(null);
     const editor = useSlate();
     const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.stopPropagation();
         if (event.target.files) {
             try {
                 const file = event.target.files[0];

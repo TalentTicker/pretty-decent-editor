@@ -1,6 +1,7 @@
 import React from 'react';
 import { useToaster } from 'react-hot-toast';
-import { PrettyDecentToast, PrettyDecentToaster, StyledIcon } from './style';
+import { PrettyDecentToast, PrettyDecentToaster } from './style';
+import { AttachmentIcon } from '../PrettyDecentAttachmentList/style';
 export const PrettyDecentNotifications = (): JSX.Element => {
     const { toasts, handlers } = useToaster();
     const { startPause, endPause } = handlers;
@@ -10,7 +11,7 @@ export const PrettyDecentNotifications = (): JSX.Element => {
                 .filter((toast) => toast.visible)
                 .map((toast) => (
                     <PrettyDecentToast animate={{ opacity: 1 }} key={toast.id} {...toast.ariaProps}>
-                        <StyledIcon>{toast.icon}</StyledIcon>
+                        <AttachmentIcon>{toast.icon}</AttachmentIcon>
                         <p>{toast.message}</p>
                     </PrettyDecentToast>
                 ))}

@@ -1,12 +1,21 @@
 import React from 'react';
 import { usePrettyDecentAttachments } from './hook';
-import { StyledList, Attachment, AttachmentAction, AttachmentText } from './style';
+import {
+    StyledList,
+    Attachment,
+    AttachmentAction,
+    AttachmentText,
+    AttachmentIcon,
+    AttachmentActionContainer,
+    AttachmentIconContainer,
+} from './style';
 import { MdClose } from 'react-icons/md';
 import { useCallback } from 'react';
 import Tippy from '@tippyjs/react';
 import { usePrettyDecentProps } from 'components/Editor/hooks/hook';
 import { PrettyDecentFile } from '../../../../pretty';
 import { AnimatePresence } from 'framer-motion';
+import { BiCheck } from 'react-icons/bi';
 export const PrettyDecentAttachmentList = (): JSX.Element => {
     const { attachments, setAttachments } = usePrettyDecentAttachments();
     const { onAttachmentRemove } = usePrettyDecentProps();
@@ -28,10 +37,18 @@ export const PrettyDecentAttachmentList = (): JSX.Element => {
                         content={attachment.file.name}
                     >
                         <Attachment animate={{ opacity: 1 }}>
-                            <AttachmentText>{attachment.file.name}</AttachmentText>
-                            <AttachmentAction onClick={handleClick(attachment)}>
-                                <MdClose />
-                            </AttachmentAction>
+                            <AttachmentIconContainer>
+                                <AttachmentIcon>
+                                    <BiCheck />
+                                    <p>Attached</p>
+                                </AttachmentIcon>
+                            </AttachmentIconContainer>
+                            <AttachmentActionContainer>
+                                <AttachmentText>{attachment.file.name}</AttachmentText>
+                                <AttachmentAction onClick={handleClick(attachment)}>
+                                    <MdClose />
+                                </AttachmentAction>
+                            </AttachmentActionContainer>
                         </Attachment>
                     </Tippy>
                 ))}

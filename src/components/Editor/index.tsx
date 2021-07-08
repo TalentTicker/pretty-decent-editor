@@ -30,6 +30,15 @@ import { toBase64 } from 'utils/toBase64';
 import { prettyDecentErrorNotification } from 'utils/prettyDecentError';
 import { PrettyDecentNotifications } from './elements/PrettyDecentNotifications';
 import { serialize } from 'utils/serialize';
+import { ThemeProvider } from 'styled-components';
+import withImages from 'plugins/withImages';
+export type PrettyDecentThemeProps = {
+    colors: {
+        primary: string;
+        secondary: string;
+    };
+};
+
 export type PrettyDecentProps = {
     className?: string;
     /**
@@ -39,20 +48,31 @@ export type PrettyDecentProps = {
     toolbarProps?: {
         options: PrettyDecentToolbarOption[];
     };
+    themeProps: PrettyDecentThemeProps;
     onEditorChange?: (newValue: PrettyDecentEditorChangeDTO) => void;
     initialState?: PrettyDecentElement[];
     renderAttachments?: React.ReactElement;
     onAttachment?: (files: PrettyDecentFile[]) => void;
     onImage?: (file: PrettyDecentFile) => void;
     onAttachmentRemove?: (file: PrettyDecentFile) => Promise<void>;
+    placeholder?: string;
 };
 
 export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element => {
-    const editor = useMemo(() => withHistory(withHtml(withTables(withReact(createEditor())))), []);
+    const editor = useMemo(() => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))), []);
     const renderElement = useCallback((props) => <PrettyDecentElements {...props} />, []);
     const renderLeaf = useCallback((props) => <PrettyDecentLeafs {...props} />, []);
-    const { dispatch, onAttachment, onEditorChange, toolbarProps, className, initialState, renderAttachments } =
-        usePrettyDecentProps();
+    const {
+        dispatch,
+        onAttachment,
+        onEditorChange,
+        toolbarProps,
+        className,
+        initialState,
+        renderAttachments,
+        themeProps,
+        placeholder,
+    } = usePrettyDecentProps();
     const toolbarOptions = useMemo(() => generateToolbar(toolbarProps?.options ?? []), [toolbarProps]);
     const { handleKeybinds } = useKeybinds(editor);
     const { setAttachments, attachments } = usePrettyDecentAttachments();
@@ -117,26 +137,27 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
         initialState && setValue(initialState);
     }, [initialState]);
     return (
-        <EditorContainer {...bond} initial="hidden" animate={{ opacity: 1 }}>
-            <StyledSlate editor={editor} value={value} onChange={handleChange}>
-                <PrettyDecentToolbar>
-                    <PrettyDecentToolbarBody toolbarOptions={toolbarOptions} />
-                </PrettyDecentToolbar>
-                {renderAttachments ?? <PrettyDecentAttachmentList />}
-                <StyledSlateEditor
-                    placeholder="Enter some text..."
-                    spellCheck
-                    autoFocus
-                    onKeyDown={handleKeybinds}
-                    data-testid="pretty-decent-editor"
-                    name="pretty-decent-editor"
-                    renderLeaf={renderLeaf}
-                    className={className}
-                    renderElement={renderElement}
-                />
-            </StyledSlate>
-            <PrettyDecentNotifications />
-        </EditorContainer>
+        <ThemeProvider theme={themeProps}>
+            <EditorContainer className={className} {...bond} initial="hidden" animate={{ opacity: 1 }}>
+                <StyledSlate editor={editor} value={value} onChange={handleChange}>
+                    <PrettyDecentToolbar>
+                        <PrettyDecentToolbarBody toolbarOptions={toolbarOptions} />
+                    </PrettyDecentToolbar>
+                    {renderAttachments ?? <PrettyDecentAttachmentList />}
+                    <StyledSlateEditor
+                        placeholder={placeholder ?? ''}
+                        spellCheck
+                        autoFocus
+                        onKeyDown={handleKeybinds}
+                        data-testid="pretty-decent-editor"
+                        name="pretty-decent-editor"
+                        renderLeaf={renderLeaf}
+                        renderElement={renderElement}
+                    />
+                </StyledSlate>
+                <PrettyDecentNotifications />
+            </EditorContainer>
+        </ThemeProvider>
     );
 };
 

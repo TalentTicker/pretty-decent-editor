@@ -6,6 +6,8 @@ import { PrettyDecentTableCell } from './PrettyDecentTableCell';
 import { PrettyDecentBlockQuote } from './PrettyDecentBlockQuote';
 import { PrettyDecentCode } from './PrettyDecentCode';
 import { PrettyDecentAttachmentList } from './PrettyDecentAttachmentList';
+import { PrettyDecentParagraph } from './PrettyDecentParagraph';
+
 export const PrettyDecentElements = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
     switch (element.type) {
         case 'attachment':
@@ -51,6 +53,6 @@ export const PrettyDecentElements = ({ attributes, children, element }: RenderEl
                 </PrettyDecentImage>
             );
         default:
-            return <p {...attributes}>{children}</p>;
+            return <PrettyDecentParagraph attributes={attributes}>{children}</PrettyDecentParagraph>;
     }
 };
