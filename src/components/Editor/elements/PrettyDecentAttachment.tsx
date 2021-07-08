@@ -3,7 +3,7 @@ import { ReactEditor, useSlate } from 'slate-react';
 import { usePrettyDecentProps } from '../hooks/hook';
 import { PrettyDecentButtonProps, PrettyDecentButton } from './PrettyDecentButton';
 import { usePrettyDecentAttachments } from './PrettyDecentAttachmentList/hook';
-import { v4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { checkFileSize } from 'utils/checkFileSize';
 import { toBase64 } from 'utils/toBase64';
 import { prettyDecentErrorNotification } from 'utils/prettyDecentError';
@@ -19,7 +19,7 @@ export const PrettyDecentAttachment = ({ children, ...props }: PrettyDecentButto
             files.forEach(async (file) => {
                 if (checkFileSize(file)) {
                     const url = await toBase64(file);
-                    const filesWithId = files.map((file) => ({ id: v4(), file, encodedUrl: url }));
+                    const filesWithId = files.map((file) => ({ id: uuid(), file, encodedUrl: url }));
                     onAttachment && onAttachment([...attachments, ...filesWithId]);
                     setAttachments && setAttachments((ps) => [...ps, ...filesWithId]);
                     ReactEditor.focus(editor);

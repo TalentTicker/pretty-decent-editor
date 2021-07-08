@@ -24,7 +24,7 @@ import { PrettyDecentAttachmentList } from './elements/PrettyDecentAttachmentLis
 import { useKeybinds } from './hooks/useKeybinds';
 import { withHistory } from 'slate-history';
 import { usePrettyDecentAttachments } from './elements/PrettyDecentAttachmentList/hook';
-import { v4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 import { checkFileSize } from 'utils/checkFileSize';
 import { toBase64 } from 'utils/toBase64';
 import { prettyDecentErrorNotification } from 'utils/prettyDecentError';
@@ -74,7 +74,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             files.forEach(async (file) => {
                 if (checkFileSize(file)) {
                     const url = await toBase64(file);
-                    const filesWithId = files.map((file) => ({ id: v4(), file, encodedUrl: url }));
+                    const filesWithId = files.map((file) => ({ id: uuid(), file, encodedUrl: url }));
                     onAttachment && onAttachment([...attachments, ...filesWithId]);
                     setAttachments && setAttachments((ps) => [...ps, ...filesWithId]);
                     ReactEditor.focus(editor);
