@@ -1,27 +1,19 @@
-name: Release
-on:
-    push:
-        branches:
-            - main
+name: Publish Package
+on: push
 jobs:
-    release:
-        name: Release
+    build:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout
-              uses: actions/checkout@v2
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v2
               with:
-                  fetch-depth: 0
-            - name: Setup Node.js
-              uses: actions/setup-node@v1
-              with:
-                  node-version: 12
-            - name: Install dependencies
-              run: yarn install --frozen-lockfile
-            - name: Prepare Package
+                  node-version: '12.x'
+                  registry-url: 'https://npm.pkg.github.com'
+            - name: Install
+              run: yarn install
+            - name: Build
               run: yarn release
-            - name: Release
+            - name: Publish
+              run: yarn publish
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-              run: npx semantic-release
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
