@@ -1,4 +1,5 @@
-packages/**/*
 .github/
+src/
+.eslintignore
 node_modules/
 .vscode
