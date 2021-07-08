@@ -9,8 +9,5 @@ index.html
 jest-setup.ts
 jest.config.ts
 README.md
-tsconfig.base.json
-tsconfig.build.json
-tsconfig.json
 vite.config.ts
 yarn.lock
