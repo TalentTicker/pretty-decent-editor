@@ -1,6 +1,6 @@
 {
   "name": "@talentticker/pretty-decent-editor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "a pretty decent editor",
   "main": "lib/src/index.js",
   "repository": "git@github.com:talentticker/pretty-decent-editor.git",
