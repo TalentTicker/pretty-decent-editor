@@ -122,9 +122,6 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                     return serialize(this.children) as string;
                 },
             };
-
-            console.log(returnValue.toHTML());
-
             onEditorChange && onEditorChange(returnValue);
         }
     };
