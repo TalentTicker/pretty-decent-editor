@@ -80,7 +80,6 @@ export const wrapTopLevelInlineNodesInParagraphs = (
 
     const maybePushInlineNodeParagraph = () => {
         if (inlineNodes.length > 0) {
-            newFragments.push(jsx('element', { type: 'paragraph' }, inlineNodes));
             inlineNodes = [];
         }
     };
