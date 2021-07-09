@@ -65,7 +65,7 @@ export const deserialize = (el: HTMLElement | ChildNode | Document) => {
 
     if (TEXT_TAGS[nodeName as TextTagNames]) {
         const attrs = TEXT_TAGS[nodeName as TextTagNames]();
-        return children.map((child) => jsx('text', attrs, child));
+        return children.map((child) => jsx('text', attrs));
     }
 
     return children;
