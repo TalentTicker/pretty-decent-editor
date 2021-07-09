@@ -53,10 +53,6 @@ export type PrettyDecentEditorChangeDTO = {
     toHTML: () => string;
 };
 
-export type PrettyDecentFile = {
-    id: string;
-    file: File;
-};
 export interface PrettyDecentChildren {
     text?: string;
     marks?: [];

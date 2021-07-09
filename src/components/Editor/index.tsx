@@ -27,7 +27,7 @@ import { PrettyDecentNotifications } from './elements/PrettyDecentNotifications'
 import { serialize } from 'utils/serialize';
 import { ThemeProvider } from 'styled-components';
 import withImages from 'plugins/withImages';
-import { PrettyDecentProps } from 'props';
+import { PrettyDecentProps } from 'index';
 
 export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element => {
     const editor = useMemo(() => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))), []);

@@ -1,4 +1,4 @@
-import { PrettyDecentProps } from 'props';
+import { PrettyDecentProps } from 'index';
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
