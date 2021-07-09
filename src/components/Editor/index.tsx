@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react';
-import { createEditor as createEditor } from 'slate';
+import { createEditor as createEditor, Transforms } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
 import { PrettyDecentEditorChangeDTO, PrettyDecentElement } from '../../types';
@@ -28,6 +28,8 @@ import { serialize } from 'utils/serialize';
 import { ThemeProvider } from 'styled-components';
 import withImages from 'plugins/withImages';
 import { PrettyDecentProps } from 'index';
+import { deserialize } from 'utils/deserialize';
+import { convertToHtml } from 'utils/convertToHtml';
 
 export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element => {
     const editor = useMemo(() => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))), []);
@@ -102,7 +104,15 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     }, []);
 
     useEffect(() => {
-        initialState && setValue(initialState);
+        if (initialState && typeof initialState === 'string') {
+            const html = convertToHtml(initialState);
+            console.log(html);
+            const state = deserialize(html.body);
+            // Transforms.insertFragment(editor, state as PrettyDecentElement[]);
+            setValue(state as PrettyDecentElement[]);
+        } else {
+            initialState && setValue(initialState as PrettyDecentElement[]);
+        }
     }, [initialState]);
     return (
         <ThemeProvider theme={themeProps}>
@@ -128,11 +138,3 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
         </ThemeProvider>
     );
 };
-
-export const PrettyDecentEditor = (props: PrettyDecentProps): JSX.Element => (
-    <PrettyDecentPropContextProvider>
-        <PrettyDecentAttachmentContextProvider>
-            <PrettyDecentEditorHeart {...props} />
-        </PrettyDecentAttachmentContextProvider>
-    </PrettyDecentPropContextProvider>
-);

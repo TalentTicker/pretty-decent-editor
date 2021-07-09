@@ -8,6 +8,7 @@ export const Form = () => {
     return (
         <form onSubmit={onSubmit}>
             <PrettyDecentEditor
+                initialState="<div><strong>Hrello World</strong></div>"
                 onAttachment={(files) => console.table(files)}
                 // onEditorChange={(value) => console.log(value.toHTML())}
             />

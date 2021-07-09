@@ -19,6 +19,7 @@ const ELEMENT_TAGS = {
     P: () => ({ type: 'paragraph' }),
     PRE: () => ({ type: 'code' }),
     UL: () => ({ type: 'bulleted-list' }),
+    DIV: () => ({ type: 'paragraph' }),
 };
 
 // COMPAT: `B` is omitted here because Google Docs uses `<b>` in weird ways.
@@ -32,7 +33,7 @@ const TEXT_TAGS = {
     U: () => ({ underline: true }),
 } as const;
 
-export const deserialize = (el: HTMLElement | ChildNode) => {
+export const deserialize = (el: HTMLElement | ChildNode | Document) => {
     if (el.nodeType === 3) {
         return el.textContent;
     } else if (el.nodeType !== 1) {

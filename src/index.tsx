@@ -1,5 +1,7 @@
-import { PrettyDecentEditor } from './components/Editor';
-
+import React from 'react';
+import { PrettyDecentEditorHeart } from 'components/Editor';
+import { PrettyDecentPropContextProvider } from 'components/Editor/context/context';
+import { PrettyDecentAttachmentContextProvider } from 'components/Editor/elements/PrettyDecentAttachmentList/context';
 import { PrettyDecentEditorChangeDTO, PrettyDecentElement, PrettyDecentToolbarOption } from 'types';
 
 export type PrettyDecentThemeProps = {
@@ -25,12 +27,20 @@ export type PrettyDecentProps = {
     };
     themeProps?: PrettyDecentThemeProps;
     onEditorChange?: (newValue: PrettyDecentEditorChangeDTO) => void;
-    initialState?: PrettyDecentElement[];
+    initialState?: PrettyDecentElement[] | string;
     renderAttachments?: React.ReactElement;
     onAttachment?: (files: PrettyDecentFile[]) => void;
     onImage?: (file: PrettyDecentFile) => void;
     onAttachmentRemove?: (file: PrettyDecentFile) => Promise<void>;
     placeholder?: string;
 };
+
+export const PrettyDecentEditor = (props: PrettyDecentProps): JSX.Element => (
+    <PrettyDecentPropContextProvider>
+        <PrettyDecentAttachmentContextProvider>
+            <PrettyDecentEditorHeart {...props} />
+        </PrettyDecentAttachmentContextProvider>
+    </PrettyDecentPropContextProvider>
+);
 
 export default PrettyDecentEditor;

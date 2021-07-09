@@ -1,7 +1,7 @@
 import React from 'react';
-import { PrettyDecentEditor } from './index';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import PrettyDecentEditor from '../../index';
 
 describe('<PrettyDecentEditor />', () => {
     const Component = () => (
@@ -57,11 +57,6 @@ describe('<PrettyDecentEditor />', () => {
             expect(bold).toBeInTheDocument();
         });
 
-        it('should render a heading button as default', () => {
-            render(<Component />);
-            const bold = screen.getByTestId('heading-btn');
-            expect(bold).toBeInTheDocument();
-        });
         it('should render a quote button as default', () => {
             render(<Component />);
             const bold = screen.getByTestId('quote-btn');
@@ -83,7 +78,7 @@ describe('<PrettyDecentEditor />', () => {
     describe('Editable Area', () => {
         it('should render a <p> block as default', () => {
             const utils = render(<Component />);
-            const span = utils.container.querySelector('[name=pretty-decent-editor] p');
+            const span = utils.container.querySelector('[name=pretty-decent-editor] div');
             expect(span).toBeInTheDocument();
         });
     });
@@ -126,13 +121,6 @@ describe('<PrettyDecentEditor />', () => {
                 userEvent.click(btn);
                 const table = container.querySelector('[name=pretty-decent-editor] table tbody');
                 expect(table).toBeInTheDocument;
-            });
-            it('should a <h1> tag on click of header', () => {
-                const { container } = render(<Component />);
-                const btn = screen.getByTestId('heading-btn');
-                userEvent.click(btn);
-                const heading = container.querySelector('[name=pretty-decent-editor] h1');
-                expect(heading).toBeInTheDocument;
             });
             it('should a <blockquote> tag on click of quote', () => {
                 const { container } = render(<Component />);
