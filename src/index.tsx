@@ -14,6 +14,7 @@ export type PrettyDecentThemeProps = {
 export type PrettyDecentFile = {
     id: string;
     file: File;
+    encodedUrl: string | ArrayBuffer | null;
 };
 
 export type PrettyDecentProps = {
