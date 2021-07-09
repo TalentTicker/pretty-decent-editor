@@ -10,8 +10,8 @@ export const StyledList = styled(motion.ul)`
     opacity: 0;
     visibility: collapse;
     background: #fff;
-    border-left: 1px solid #000;
-    border-right: 1px solid #000;
+    border-left: 1px solid #979797;
+    border-right: 1px solid #979797;
     padding: 4px;
     margin: 0 4px;
     /* height: 100%; */
@@ -25,8 +25,8 @@ export const sharedAttachment = css`
     align-items: center;
     width: 100%;
     font-size: 12px;
-    margin: 1px 4px 1px 0;
-    padding: 4px 4px 4px 8px;
+    margin: 1px 1px;
+    padding: 4px 4px 4px 4px;
     opacity: 0;
     border-radius: 5px;
     background: #eee;

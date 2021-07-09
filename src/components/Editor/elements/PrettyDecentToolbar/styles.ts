@@ -7,7 +7,7 @@ export const StyledMenu = styled(PrettyDecentMenu)`
     border-radius: 5px 5px 0 0;
     margin: 0 4px;
     background: #fff;
-    border: 1px solid #000;
+    border: 1px solid #979797;
     display: grid;
     grid-template-columns: auto 1fr;
 

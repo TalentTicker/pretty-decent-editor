@@ -91,6 +91,7 @@ export const PrettyDecentButton = forwardRef<HTMLButtonElement, PrettyDecentButt
 
         const handleClick = (event: React.MouseEvent) => {
             event.stopPropagation();
+            event.preventDefault();
             if (!isActive && onClick) {
                 onClick();
                 ReactEditor.focus(editor);
