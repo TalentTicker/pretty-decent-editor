@@ -13,7 +13,7 @@ import { MdClose } from 'react-icons/md';
 import { useCallback } from 'react';
 import Tippy from '@tippyjs/react';
 import { usePrettyDecentProps } from 'components/Editor/hooks/hook';
-import { PrettyDecentFile } from '../../../../pretty';
+import { PrettyDecentFile } from '../../../../types';
 import { AnimatePresence } from 'framer-motion';
 import { BiCheck } from 'react-icons/bi';
 export const PrettyDecentAttachmentList = (): JSX.Element => {

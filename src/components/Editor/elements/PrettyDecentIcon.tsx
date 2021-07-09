@@ -1,6 +1,6 @@
+import { PrettyDecentProps } from 'props';
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
-import { PrettyDecentProps } from '..';
 
 export const PrettyDecentIcon = ({
     className,

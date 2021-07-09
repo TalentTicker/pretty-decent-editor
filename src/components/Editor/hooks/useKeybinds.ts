@@ -1,7 +1,7 @@
 import isHotkey from 'is-hotkey';
 import React, { useState } from 'react';
 import { PDEditor } from 'utils/PDEditor';
-import { PrettyDecentEditor } from '../../../pretty';
+import { PrettyDecentEditor } from '../../../types';
 
 type PrettyDecentKeybindMap = {
     keyPair: string;

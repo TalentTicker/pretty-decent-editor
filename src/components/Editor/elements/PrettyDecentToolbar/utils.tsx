@@ -1,6 +1,6 @@
 import React from 'react';
 import { PrettyDecentToolbarConfigOptions } from 'utils/toolbarConfig';
-import { PrettyDecentButtonTypes } from '../../../../pretty';
+import { PrettyDecentButtonTypes } from '../../../../types';
 import { PrettyDecentTableBtn } from '../PrettyDecentTableBtn';
 import { PrettyDecentAttachment } from '../PrettyDecentAttachment';
 import { PrettyDecentImageBtn } from '../PrettyDecentImages/PrettyDecentImageBtn';

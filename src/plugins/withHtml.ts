@@ -1,5 +1,5 @@
 import { Transforms } from 'slate';
-import { PrettyDecentChildren, PrettyDecentEditor } from '../pretty';
+import { PrettyDecentChildren, PrettyDecentEditor } from '../types';
 import { deserialize } from '../utils/deserialize';
 
 export const withHtml = (editor: PrettyDecentEditor): PrettyDecentEditor => {

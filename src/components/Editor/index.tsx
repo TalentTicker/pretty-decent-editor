@@ -3,12 +3,7 @@ import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react'
 import { createEditor as createEditor } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
-import {
-    PrettyDecentEditorChangeDTO,
-    PrettyDecentElement,
-    PrettyDecentFile,
-    PrettyDecentToolbarOption,
-} from '../../pretty';
+import { PrettyDecentElement } from '../../types';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
 import { PrettyDecentLeafs } from './leafs';
 import { withTables } from 'plugins/withTables';
@@ -32,31 +27,7 @@ import { PrettyDecentNotifications } from './elements/PrettyDecentNotifications'
 import { serialize } from 'utils/serialize';
 import { ThemeProvider } from 'styled-components';
 import withImages from 'plugins/withImages';
-export type PrettyDecentThemeProps = {
-    colors: {
-        primary: string;
-        secondary: string;
-    };
-};
-
-export type PrettyDecentProps = {
-    className?: string;
-    /**
-     * TODO: Add good docs here
-     * toolbarProps are any props used in the maniuplation of the toolbar
-     */
-    toolbarProps?: {
-        options: PrettyDecentToolbarOption[];
-    };
-    themeProps?: PrettyDecentThemeProps;
-    onEditorChange?: (newValue: PrettyDecentEditorChangeDTO) => void;
-    initialState?: PrettyDecentElement[];
-    renderAttachments?: React.ReactElement;
-    onAttachment?: (files: PrettyDecentFile[]) => void;
-    onImage?: (file: PrettyDecentFile) => void;
-    onAttachmentRemove?: (file: PrettyDecentFile) => Promise<void>;
-    placeholder?: string;
-};
+import { PrettyDecentProps } from 'props';
 
 export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element => {
     const editor = useMemo(() => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))), []);

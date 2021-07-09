@@ -1,4 +1,4 @@
-import { PrettyDecentEditor } from 'pretty';
+import { PrettyDecentEditor } from 'types';
 
 const withImages = (editor: PrettyDecentEditor) => {
     const { isVoid } = editor;

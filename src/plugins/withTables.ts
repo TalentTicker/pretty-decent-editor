@@ -1,5 +1,5 @@
 import { Editor, Point, Range, Element as SlateElement } from 'slate';
-import { PrettyDecentEditor } from '../pretty';
+import { PrettyDecentEditor } from '../types';
 
 export const withTables = (editor: PrettyDecentEditor) => {
     const { deleteBackward, deleteForward, insertBreak } = editor;

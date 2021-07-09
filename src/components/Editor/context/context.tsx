@@ -1,6 +1,6 @@
 import React from 'react';
 import { createContext, useReducer } from 'react';
-import { PrettyDecentProps } from '..';
+import { PrettyDecentProps } from 'props';
 
 export type PrettyDecentPropContextType = PrettyDecentProps & {
     dispatch: React.Dispatch<PrettyDecentReducerActions> | undefined;

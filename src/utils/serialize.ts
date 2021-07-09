@@ -1,6 +1,6 @@
 import escapeHtml from 'escape-html';
 import { Text } from 'slate';
-import { PrettyDecentElement } from '../pretty';
+import { PrettyDecentElement } from '../types';
 
 const recurser = (node: PrettyDecentElement) => {
     const children = node?.children?.map((n: PrettyDecentElement) => serialize(n)).join('') as

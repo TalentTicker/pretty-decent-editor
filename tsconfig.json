@@ -3,7 +3,7 @@
   "include": [
     "src/index.ts",
     "./src",
-    "src/slate.d.ts", 
+    "src/pretty.d.ts", 
   ],
   "exclude": [
     "node_modules",

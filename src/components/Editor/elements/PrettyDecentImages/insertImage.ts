@@ -1,6 +1,6 @@
 import { Editor, Node, Path, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
-import { PrettyDecentChildren, PrettyDecentEditor } from '../../../../pretty';
+import { PrettyDecentChildren, PrettyDecentEditor } from '../../../../types';
 
 export const insertImage = (editor: PrettyDecentEditor, file: string): void => {
     const { selection } = editor;

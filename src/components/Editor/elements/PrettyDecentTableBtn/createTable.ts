@@ -1,6 +1,6 @@
 import { isBlockActive } from 'components/Editor/elements/PrettyDecentButton';
 import { Transforms } from 'slate';
-import { PrettyDecentChildren, PrettyDecentEditor, PrettyDecentElement } from '../../../../pretty';
+import { PrettyDecentChildren, PrettyDecentEditor, PrettyDecentElement } from '../../../../types';
 
 type CreateTableProps = {
     editor: PrettyDecentEditor;
