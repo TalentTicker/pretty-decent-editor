@@ -21,8 +21,8 @@ export const StyledList = styled(motion.ul)`
 
 export const sharedAttachment = css`
     display: flex;
-    height: 26px;
     align-items: center;
+    min-height: 36px;
     width: 100%;
     font-size: 12px;
     margin: 1px 1px;
