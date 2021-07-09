@@ -48,7 +48,7 @@ export type PrettyDecentProps = {
     toolbarProps?: {
         options: PrettyDecentToolbarOption[];
     };
-    themeProps: PrettyDecentThemeProps;
+    themeProps?: PrettyDecentThemeProps;
     onEditorChange?: (newValue: PrettyDecentEditorChangeDTO) => void;
     initialState?: PrettyDecentElement[];
     renderAttachments?: React.ReactElement;
