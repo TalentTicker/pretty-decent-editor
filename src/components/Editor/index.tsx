@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ReactEditor, withReact } from 'slate-react';
-import { createEditor } from 'slate';
+import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react';
+import { createEditor as createEditor } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
 import {

@@ -23,7 +23,8 @@ export default defineConfig({
         namedExports: true,
     },
     optimizeDeps: {
-        entries: ['src/components/**/*', 'src/hooks/**/*', 'src/utils'],
+        include: ['slate', 'slate-react'],
+        entries: ['./src/**/*.tsx'],
     },
     build: {
         lib: {
@@ -31,15 +32,24 @@ export default defineConfig({
             name: 'PrettyDecentEditor',
         },
         rollupOptions: {
-            external: ['react', 'react-dom', 'styled-components', 'framer-motion', 'react-icons'],
+            external: [
+                'react',
+                'react-dom',
+                'styled-components',
+                'react-icons',
+                'slate',
+                'slate-react',
+                'framer-motion',
+            ],
             output: {
                 // Provide global variables to use in the UMD build
                 // for externalized deps
                 globals: {
+                    slate: 'BaseEditor',
+                    'slate-react': 'ReactEditor',
                     react: 'React',
                     'react-dom': 'ReactDOM',
                     'styled-components': 'styled',
-                    'framer-motion': 'framer',
                     'react-icons': 'react-icons',
                 },
             },
