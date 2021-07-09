@@ -1,6 +1,6 @@
 import { Editor, Text } from 'slate';
 import { jsx } from 'slate-hyperscript';
-import { PrettyDecentEditorChangeDTO, PrettyDecentElement } from 'types';
+import { PrettyDecentChildren, PrettyDecentEditor, PrettyDecentElement } from 'types';
 
 type ElementTagNames = keyof typeof ELEMENT_TAGS;
 
@@ -71,9 +71,12 @@ export const deserialize = (el: HTMLElement | ChildNode | Document) => {
     return children;
 };
 
-export const wrapTopLevelInlineNodesInParagraphs = (editor: PrettyDecentEditor, fragment: PrettyDecentElement[]) => {
-    let inlineNodes = [];
-    const newFragments = [];
+export const wrapTopLevelInlineNodesInParagraphs = (
+    editor: PrettyDecentEditor,
+    fragment: PrettyDecentElement[],
+): PrettyDecentChildren[] => {
+    let inlineNodes = [] as PrettyDecentChildren[];
+    const newFragments = [] as PrettyDecentChildren[];
 
     const maybePushInlineNodeParagraph = () => {
         if (inlineNodes.length > 0) {

@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react';
-import { createEditor as createEditor, Transforms } from 'slate';
+import { createEditor as createEditor } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
-import { PrettyDecentEditor, PrettyDecentEditorChangeDTO, PrettyDecentElement } from '../../types';
+import { PrettyDecentEditorChangeDTO, PrettyDecentElement } from '../../types';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
 import { PrettyDecentLeafs } from './leafs';
 import { withTables } from 'plugins/withTables';
