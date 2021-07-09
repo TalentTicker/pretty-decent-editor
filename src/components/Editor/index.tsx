@@ -3,7 +3,7 @@ import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react'
 import { createEditor as createEditor } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
-import { PrettyDecentEditorChangeDTO, PrettyDecentElement } from '../../types';
+import { PrettyDecentElement } from '../../types';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
 import { PrettyDecentLeafs } from './leafs';
 import { withTables } from 'plugins/withTables';
@@ -25,7 +25,7 @@ import { PrettyDecentNotifications } from './elements/PrettyDecentNotifications'
 import { serialize } from 'utils/serialize';
 import { ThemeProvider } from 'styled-components';
 import withImages from 'plugins/withImages';
-import { PrettyDecentProps } from 'index';
+import { PrettyDecentEditorData, PrettyDecentProps } from 'index';
 import { deserialize, wrapTopLevelInlineNodesInParagraphs } from 'utils/deserialize';
 import { convertToHtml } from 'utils/convertToHtml';
 
@@ -85,7 +85,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     const handleChange = (newValue: PrettyDecentElement[]) => {
         if (typeof newValue !== 'undefined' && newValue.length > 0) {
             setValue(newValue);
-            const returnValue: PrettyDecentEditorChangeDTO = {
+            const returnValue: PrettyDecentEditorData = {
                 children: newValue,
                 toString: function () {
                     return JSON.stringify(this.children);

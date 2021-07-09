@@ -6,6 +6,7 @@ export const StyledSlateEditor = styled(Editable)`
     border-radius: 0 0 5px 5px;
     padding: 24px;
     margin: 0 4px;
+    overflow: scroll;
     max-width: 100%;
     height: 100%;
     background: #fff;

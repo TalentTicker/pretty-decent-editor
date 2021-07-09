@@ -46,12 +46,6 @@ export type PrettyDecentToolbarOption =
 export type PrettyDecentButtonTypes = 'mark' | 'block';
 export type PrettyDecentMarkTypes = 'bold' | 'italic' | 'strikethrough' | 'underline';
 export type PrettyDecentElementTypes = PrettyDecentBlockTypes | PrettyDecentMarkTypes;
-export type PrettyDecentEditorChangeDTO = {
-    children: PrettyDecentChildren[];
-    toString: () => string;
-    toEncodedString: () => string;
-    toHTML: () => string;
-};
 
 export interface PrettyDecentChildren {
     text?: string;

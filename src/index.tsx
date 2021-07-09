@@ -2,7 +2,7 @@ import React from 'react';
 import { PrettyDecentEditorHeart } from 'components/Editor';
 import { PrettyDecentPropContextProvider } from 'components/Editor/context/context';
 import { PrettyDecentAttachmentContextProvider } from 'components/Editor/elements/PrettyDecentAttachmentList/context';
-import { PrettyDecentEditorChangeDTO, PrettyDecentElement, PrettyDecentToolbarOption } from 'types';
+import { PrettyDecentChildren, PrettyDecentElement, PrettyDecentToolbarOption } from 'types';
 
 export type PrettyDecentThemeProps = {
     colors: {
@@ -17,6 +17,13 @@ export type PrettyDecentFile = {
     encodedUrl: string | ArrayBuffer | null;
 };
 
+export type PrettyDecentEditorData = {
+    children: PrettyDecentChildren[];
+    toString: () => string;
+    toEncodedString: () => string;
+    toHTML: () => string;
+};
+
 export type PrettyDecentProps = {
     className?: string;
     /**
@@ -27,7 +34,7 @@ export type PrettyDecentProps = {
         options: PrettyDecentToolbarOption[];
     };
     themeProps?: PrettyDecentThemeProps;
-    onEditorChange?: (newValue: PrettyDecentEditorChangeDTO) => void;
+    onEditorChange?: (newValue: PrettyDecentEditorData) => void;
     initialState?: PrettyDecentElement[] | string;
     renderAttachments?: React.ReactElement;
     onAttachment?: (files: PrettyDecentFile[]) => void;
