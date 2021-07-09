@@ -1,4 +1,6 @@
+import { Editor, Transforms } from 'slate';
 import { jsx } from 'slate-hyperscript';
+import { PrettyDecentEditor } from 'types';
 
 type ElementTagNames = keyof typeof ELEMENT_TAGS;
 
@@ -31,6 +33,7 @@ const TEXT_TAGS = {
     S: () => ({ strikethrough: true }),
     STRONG: () => ({ bold: true }),
     U: () => ({ underline: true }),
+    P: () => ({ type: 'paragraph' }),
 } as const;
 
 export const deserialize = (el: HTMLElement | ChildNode | Document) => {
@@ -56,7 +59,7 @@ export const deserialize = (el: HTMLElement | ChildNode | Document) => {
 
     if (ELEMENT_TAGS[nodeName as ElementTagNames]) {
         const attrs = ELEMENT_TAGS[nodeName as ElementTagNames](el as HTMLElement);
-        return jsx('element', attrs, [{ text: '' }, ...children]);
+        return jsx('element', attrs, [{ type: 'paragraph', text: '' }, ...children]);
     }
 
     if (TEXT_TAGS[nodeName as TextTagNames]) {

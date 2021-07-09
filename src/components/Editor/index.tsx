@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react';
-import { createEditor as createEditor, Transforms } from 'slate';
+import { createEditor as createEditor } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
 import { PrettyDecentEditorChangeDTO, PrettyDecentElement } from '../../types';
@@ -11,10 +11,8 @@ import 'tippy.js/dist/tippy.css'; // optional for styling
 import { withHtml } from 'plugins/withHtml';
 import { generateToolbar } from 'utils/generateToolbar';
 import { PrettyDecentToolbarBody } from './elements/PrettyDecentToolbar/PrettyDecentToolbarBody';
-import { PrettyDecentPropContextProvider } from './context/context';
 import { usePrettyDecentProps } from './hooks/hook';
 import { useDropArea } from 'react-use';
-import { PrettyDecentAttachmentContextProvider } from './elements/PrettyDecentAttachmentList/context';
 import { PrettyDecentAttachmentList } from './elements/PrettyDecentAttachmentList';
 import { useKeybinds } from './hooks/useKeybinds';
 import { withHistory } from 'slate-history';
@@ -81,6 +79,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     };
 
     const handleChange = (newValue: PrettyDecentElement[]) => {
+        console.log({ newValue });
         if (typeof newValue !== 'undefined' && newValue.length > 0) {
             setValue(newValue);
             const returnValue: PrettyDecentEditorChangeDTO = {
@@ -105,11 +104,13 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
 
     useEffect(() => {
         if (initialState && typeof initialState === 'string') {
-            const html = convertToHtml(initialState);
-            console.log(html);
+            console.log('in here');
+            const html = convertToHtml(initialState.replace(/\n/g, '<br />'));
             const state = deserialize(html.body);
-            // Transforms.insertFragment(editor, state as PrettyDecentElement[]);
-            setValue(state as PrettyDecentElement[]);
+            console.log({ state, initialState });
+            const padded = [{ type: 'paragraph', children: state }];
+            setValue((ps) => [...ps, ...(padded as PrettyDecentElement[])]);
+            // Transforms.insertNodes(editor, state as PrettyDecentElement[]);
         } else {
             initialState && setValue(initialState as PrettyDecentElement[]);
         }
