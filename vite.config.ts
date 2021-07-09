@@ -40,6 +40,14 @@ export default defineConfig({
                 'slate',
                 'slate-react',
                 'framer-motion',
+                '@tippyjs/react',
+                'is-hotkey',
+                'react-hot-toast',
+                'react-image-file-resizer',
+                'react-portal',
+                'react-use',
+                'slate-hyperscript',
+                'uuid',
             ],
             output: {
                 // Provide global variables to use in the UMD build
@@ -51,6 +59,7 @@ export default defineConfig({
                     'react-dom': 'ReactDOM',
                     'styled-components': 'styled',
                     'react-icons': 'react-icons',
+                    'framer-motion': 'motion',
                 },
             },
         },

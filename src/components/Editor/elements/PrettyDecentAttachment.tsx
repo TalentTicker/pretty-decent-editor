@@ -14,6 +14,7 @@ export const PrettyDecentAttachment = ({ children, ...props }: PrettyDecentButto
     const { setAttachments, attachments } = usePrettyDecentAttachments();
     const { onAttachment } = usePrettyDecentProps();
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.stopPropagation();
         if (event.target.files) {
             const files = [...event.target.files];
             files.forEach(async (file) => {
