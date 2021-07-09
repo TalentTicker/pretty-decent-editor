@@ -1,6 +1,6 @@
-import { Editor, Transforms } from 'slate';
+import { Editor, Text } from 'slate';
 import { jsx } from 'slate-hyperscript';
-import { PrettyDecentEditor } from 'types';
+import { PrettyDecentEditorChangeDTO, PrettyDecentElement } from 'types';
 
 type ElementTagNames = keyof typeof ELEMENT_TAGS;
 
@@ -54,11 +54,12 @@ export const deserialize = (el: HTMLElement | ChildNode | Document) => {
     const children = Array.from(parent.childNodes).map(deserialize).flat() as ChildNode[];
 
     if (el.nodeName === 'BODY') {
-        return jsx('fragment', {}, children);
+        return jsx('fragment', {}, [{ type: 'paragraph', text: '' }, ...children]);
     }
 
     if (ELEMENT_TAGS[nodeName as ElementTagNames]) {
         const attrs = ELEMENT_TAGS[nodeName as ElementTagNames](el as HTMLElement);
+
         return jsx('element', attrs, [{ type: 'paragraph', text: '' }, ...children]);
     }
 
@@ -68,4 +69,28 @@ export const deserialize = (el: HTMLElement | ChildNode | Document) => {
     }
 
     return children;
+};
+
+export const wrapTopLevelInlineNodesInParagraphs = (editor: PrettyDecentEditor, fragment: PrettyDecentElement[]) => {
+    let inlineNodes = [];
+    const newFragments = [];
+
+    const maybePushInlineNodeParagraph = () => {
+        if (inlineNodes.length > 0) {
+            newFragments.push(jsx('element', { type: 'paragraph' }, inlineNodes));
+            inlineNodes = [];
+        }
+    };
+
+    fragment.forEach((node) => {
+        if (Text.isText(node) || Editor.isInline(editor, node)) {
+            inlineNodes.push(node);
+        } else {
+            maybePushInlineNodeParagraph();
+            newFragments.push(node);
+        }
+    });
+    maybePushInlineNodeParagraph();
+
+    return newFragments;
 };

@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@tippyjs/react": "^4.2.5",
+    "@udecode/slate-plugins-html-serializer": "^1.0.0-alpha.25",
     "escape-html": "^1.0.3",
     "framer-motion": "^4.1.17",
     "is-hotkey": "^0.2.0",

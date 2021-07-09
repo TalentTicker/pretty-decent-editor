@@ -71,4 +71,7 @@ export type PrettyDecentElement = PrettyDecentChildren;
 export type PrettyDecentEditor = BaseEditor &
     ReactEditor & {
         toggleMark: (editor: PrettyDecentEditor, mark: PrettyDecentMarkTypes) => void;
+        key: string;
+        id: string;
+        options: any;
     };

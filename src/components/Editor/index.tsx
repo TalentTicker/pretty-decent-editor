@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react';
-import { createEditor as createEditor } from 'slate';
+import { createEditor as createEditor, Transforms } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
-import { PrettyDecentEditorChangeDTO, PrettyDecentElement } from '../../types';
+import { PrettyDecentEditor, PrettyDecentEditorChangeDTO, PrettyDecentElement } from '../../types';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
 import { PrettyDecentLeafs } from './leafs';
 import { withTables } from 'plugins/withTables';
@@ -26,11 +26,15 @@ import { serialize } from 'utils/serialize';
 import { ThemeProvider } from 'styled-components';
 import withImages from 'plugins/withImages';
 import { PrettyDecentProps } from 'index';
-import { deserialize } from 'utils/deserialize';
+import { deserialize, wrapTopLevelInlineNodesInParagraphs } from 'utils/deserialize';
 import { convertToHtml } from 'utils/convertToHtml';
 
 export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element => {
-    const editor = useMemo(() => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))), []);
+    const editor = useMemo(
+        () => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))),
+
+        [],
+    );
     const renderElement = useCallback((props) => <PrettyDecentElements {...props} />, []);
     const renderLeaf = useCallback((props) => <PrettyDecentLeafs {...props} />, []);
     const {
@@ -49,8 +53,8 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     const { setAttachments, attachments } = usePrettyDecentAttachments();
     const [bond] = useDropArea({
         onFiles: (files) => handleDrop(files),
-        onUri: (uri) => console.log('uri', uri),
-        onText: (text) => console.log('text', text),
+        // onUri: (uri) => console.log('uri', uri),
+        // onText: (text) => console.log('text', text),
     });
     // Add the initial value when setting up our state.
     const [value, setValue] = useState<PrettyDecentElement[]>([
@@ -79,7 +83,6 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     };
 
     const handleChange = (newValue: PrettyDecentElement[]) => {
-        console.log({ newValue });
         if (typeof newValue !== 'undefined' && newValue.length > 0) {
             setValue(newValue);
             const returnValue: PrettyDecentEditorChangeDTO = {
@@ -104,13 +107,14 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
 
     useEffect(() => {
         if (initialState && typeof initialState === 'string') {
-            console.log('in here');
-            const html = convertToHtml(initialState.replace(/\n/g, '<br />'));
-            const state = deserialize(html.body);
-            console.log({ state, initialState });
-            const padded = [{ type: 'paragraph', children: state }];
-            setValue((ps) => [...ps, ...(padded as PrettyDecentElement[])]);
-            // Transforms.insertNodes(editor, state as PrettyDecentElement[]);
+            const html = convertToHtml(initialState);
+            const fragment = deserialize(html.body);
+            let fragmentWithOnlyBlocks = fragment;
+            if (Array.isArray(fragment)) {
+                fragmentWithOnlyBlocks = wrapTopLevelInlineNodesInParagraphs(editor, fragment as PrettyDecentElement[]);
+            }
+            // const padded = [{ type: 'paragraph', children: state }];
+            setValue((ps) => [...ps, ...(fragmentWithOnlyBlocks as PrettyDecentElement[])]);
         } else {
             initialState && setValue(initialState as PrettyDecentElement[]);
         }
