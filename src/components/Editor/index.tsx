@@ -29,7 +29,7 @@ import { PrettyDecentEditorData, PrettyDecentProps } from 'index';
 import { deserialize, wrapTopLevelInlineNodesInParagraphs } from 'utils/deserialize';
 import { convertToHtml } from 'utils/convertToHtml';
 
-const EMPTY = [
+const EMPTY: PrettyDecentElement[] = [
     {
         type: 'paragraph',
         children: [{ text: ' ', marks: [], bold: false, italic: false, underline: false, code: false }],

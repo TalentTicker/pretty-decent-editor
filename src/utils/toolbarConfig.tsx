@@ -126,4 +126,12 @@ export const toolbarConfig: PrettyDecentToolbarConfig = {
         type: 'block',
         'data-testId': 'link-btn',
     },
+    block: {
+        id: uuid(),
+        tooltipText: 'Link',
+        icon: <BiLink />,
+        format: 'link',
+        type: 'block',
+        'data-testId': 'link-btn',
+    },
 };
