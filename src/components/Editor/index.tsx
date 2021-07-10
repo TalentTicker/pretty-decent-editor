@@ -102,7 +102,6 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             onEditorChange && onEditorChange(returnValue);
         }
     };
-    console.log(value);
     useEffect(() => {
         dispatch && dispatch({ type: 'UPDATE', payload: props });
 

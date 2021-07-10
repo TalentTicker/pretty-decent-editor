@@ -78,7 +78,7 @@ describe('<PrettyDecentEditor />', () => {
     describe('Editable Area', () => {
         it('should render a <p> block as default', () => {
             const utils = render(<Component />);
-            const span = utils.container.querySelector('[name=pretty-decent-editor] div');
+            const span = utils.container.querySelector('[name=pretty-decent-editor] p');
             expect(span).toBeInTheDocument();
         });
     });
