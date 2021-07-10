@@ -46,6 +46,8 @@ export const PrettyDecentElements = ({ attributes, children, element }: RenderEl
                     {children}
                 </a>
             );
+        case 'block':
+            return <div {...attributes}>{children}</div>;
         case 'image':
             return (
                 <PrettyDecentImage attributes={attributes} element={element}>
@@ -53,6 +55,6 @@ export const PrettyDecentElements = ({ attributes, children, element }: RenderEl
                 </PrettyDecentImage>
             );
         default:
-            return <PrettyDecentParagraph attributes={attributes}>{children}</PrettyDecentParagraph>;
+            return <p {...attributes}>{children}</p>;
     }
 };

@@ -29,6 +29,13 @@ import { PrettyDecentEditorData, PrettyDecentProps } from 'index';
 import { deserialize, wrapTopLevelInlineNodesInParagraphs } from 'utils/deserialize';
 import { convertToHtml } from 'utils/convertToHtml';
 
+const EMPTY = [
+    {
+        type: 'paragraph',
+        children: [{ text: ' ', marks: [], bold: false, italic: false, underline: false, code: false }],
+    },
+];
+
 export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element => {
     const editor = useMemo(
         () => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))),
@@ -57,12 +64,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
         // onText: (text) => console.log('text', text),
     });
     // Add the initial value when setting up our state.
-    const [value, setValue] = useState<PrettyDecentElement[]>([
-        {
-            type: 'paragraph',
-            children: [{ text: '', marks: [], bold: false, italic: false, underline: false, code: false }],
-        },
-    ]);
+    const [value, setValue] = useState<PrettyDecentElement[]>(EMPTY);
 
     const handleDrop = (files: File[]) => {
         if (files) {
@@ -100,28 +102,44 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             onEditorChange && onEditorChange(returnValue);
         }
     };
-
+    console.log(value);
     useEffect(() => {
         dispatch && dispatch({ type: 'UPDATE', payload: props });
+
+        return () => {
+            // hotreload causes a crash
+            // https://github.com/ianstormtaylor/slate/issues/3858
+        };
     }, []);
 
     useEffect(() => {
-        if (initialState && typeof initialState === 'string') {
-            const html = convertToHtml(initialState);
-            const fragment = deserialize(html.body);
-            let fragmentWithOnlyBlocks = fragment;
-            if (Array.isArray(fragment)) {
-                fragmentWithOnlyBlocks = wrapTopLevelInlineNodesInParagraphs(editor, fragment as PrettyDecentElement[]);
+        if (initialState) {
+            if (typeof initialState === 'string') {
+                const html = convertToHtml(initialState);
+                const fragment = deserialize(html.body);
+                let fragmentWithOnlyBlocks = fragment;
+                if (Array.isArray(fragment)) {
+                    fragmentWithOnlyBlocks = wrapTopLevelInlineNodesInParagraphs(
+                        editor,
+                        fragment as PrettyDecentElement[],
+                    );
+                }
+                // const padded = [{ type: 'paragraph', children: state }];
+                setValue((ps) => [...ps, ...(fragmentWithOnlyBlocks as PrettyDecentElement[])]);
+            } else {
+                initialState && setValue(initialState as PrettyDecentElement[]);
             }
-            // const padded = [{ type: 'paragraph', children: state }];
-            setValue((ps) => [...ps, ...(fragmentWithOnlyBlocks as PrettyDecentElement[])]);
-        } else {
-            initialState && setValue(initialState as PrettyDecentElement[]);
         }
     }, [initialState]);
     return (
         <ThemeProvider theme={themeProps}>
-            <EditorContainer className={className} {...bond} initial="hidden" animate={{ opacity: 1 }}>
+            <EditorContainer
+                className={className}
+                {...bond}
+                initial="hidden"
+                animate={{ height: '100%' }}
+                transition={{ duration: 1 }}
+            >
                 <StyledSlate editor={editor} value={value} onChange={handleChange}>
                     <PrettyDecentToolbar>
                         <PrettyDecentToolbarBody toolbarOptions={toolbarOptions} />

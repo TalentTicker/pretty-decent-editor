@@ -24,7 +24,8 @@ export type PrettyDecentBlockTypes =
     | 'heading-three'
     | 'heading-four'
     | 'heading-five'
-    | 'heading-six';
+    | 'heading-six'
+    | 'block';
 
 export type PrettyDecentToolbarOption =
     | Exclude<

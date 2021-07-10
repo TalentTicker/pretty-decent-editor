@@ -21,7 +21,7 @@ const ELEMENT_TAGS = {
     P: () => ({ type: 'paragraph' }),
     PRE: () => ({ type: 'code' }),
     UL: () => ({ type: 'bulleted-list' }),
-    DIV: () => ({ type: 'paragraph' }),
+    DIV: () => ({ type: 'block' }),
 };
 
 // COMPAT: `B` is omitted here because Google Docs uses `<b>` in weird ways.
@@ -33,7 +33,7 @@ const TEXT_TAGS = {
     S: () => ({ strikethrough: true }),
     STRONG: () => ({ bold: true }),
     U: () => ({ underline: true }),
-    P: () => ({ type: 'paragraph' }),
+    // P: () => ({ type: 'paragraph' }),
 } as const;
 
 export const deserialize = (el: HTMLElement | ChildNode | Document) => {
@@ -54,20 +54,21 @@ export const deserialize = (el: HTMLElement | ChildNode | Document) => {
     const children = Array.from(parent.childNodes).map(deserialize).flat() as ChildNode[];
 
     if (el.nodeName === 'BODY') {
-        return jsx('fragment', {}, [{ type: 'paragraph', text: '' }, ...children]);
+        return jsx('fragment', {}, children);
     }
 
     if (ELEMENT_TAGS[nodeName as ElementTagNames]) {
         const attrs = ELEMENT_TAGS[nodeName as ElementTagNames](el as HTMLElement);
-
-        return jsx('element', attrs, [{ type: 'paragraph', text: '' }, ...children]);
+        if (nodeName === 'IMG') {
+            return jsx('element', attrs, [{ type: 'block', text: '', children }]);
+        }
+        return jsx('element', attrs, children);
     }
 
     if (TEXT_TAGS[nodeName as TextTagNames]) {
         const attrs = TEXT_TAGS[nodeName as TextTagNames]();
-        return children.map((child) => jsx('text', attrs));
+        return children.map((child) => jsx('text', attrs, child));
     }
-
     return children;
 };
 
