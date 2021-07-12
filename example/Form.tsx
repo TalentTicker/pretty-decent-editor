@@ -20,9 +20,10 @@ export const Form = () => {
     return (
         <>
             <button onClick={onClick}>New State</button>
-            <form onSubmit={onSubmit}>
+            <form style={{ height: '50vh' }} onSubmit={onSubmit}>
                 <PrettyDecentEditor
                     initialState={state}
+                    height="50vh"
                     onAttachment={(files) => console.table(files)}
                     // onEditorChange={(value) => console.log(value.toHTML())}
                 />

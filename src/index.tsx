@@ -41,6 +41,7 @@ export type PrettyDecentProps = {
     onImage?: (file: PrettyDecentFile) => void;
     onAttachmentRemove?: (file: PrettyDecentFile) => Promise<void>;
     placeholder?: string;
+    height?: string;
 };
 
 export const PrettyDecentEditor = (props: PrettyDecentProps): JSX.Element => (

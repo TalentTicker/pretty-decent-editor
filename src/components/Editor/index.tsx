@@ -47,6 +47,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
         renderAttachments,
         themeProps,
         placeholder,
+        height,
     } = usePrettyDecentProps();
     const editor = useMemo(
         () => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))),
@@ -140,6 +141,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                     </PrettyDecentToolbar>
                     {renderAttachments ?? <PrettyDecentAttachmentList />}
                     <StyledSlateEditor
+                        height={height}
                         placeholder={placeholder ?? ''}
                         spellCheck
                         autoFocus
