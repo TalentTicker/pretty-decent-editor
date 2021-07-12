@@ -126,7 +126,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                 }
                 console.log({ fragmentWithOnlyBlocks });
                 const padded = [{ type: 'block', children: fragmentWithOnlyBlocks }];
-                setValue((ps) => [...(padded as PrettyDecentElement[])]);
+                setValue(() => [...(padded as PrettyDecentElement[])]);
             } else {
                 initialState && setValue(initialState as PrettyDecentElement[]);
             }
