@@ -3,7 +3,6 @@ import { PrettyDecentEditorHeart } from 'components/Editor';
 import { PrettyDecentPropContextProvider } from 'components/Editor/context/context';
 import { PrettyDecentAttachmentContextProvider } from 'components/Editor/elements/PrettyDecentAttachmentList/context';
 import { PrettyDecentChildren, PrettyDecentElement, PrettyDecentToolbarOption } from 'types';
-import { usePrettyDecentEditor } from 'components/Editor/hooks/usePrettyDecentEditor';
 
 export type PrettyDecentThemeProps = {
     colors: {
@@ -53,7 +52,5 @@ export const PrettyDecentEditor = (props: PrettyDecentProps): JSX.Element => (
         </PrettyDecentAttachmentContextProvider>
     </PrettyDecentPropContextProvider>
 );
-
-export { usePrettyDecentEditor };
 
 export default PrettyDecentEditor;

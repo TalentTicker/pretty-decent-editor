@@ -28,7 +28,6 @@ import withImages from 'plugins/withImages';
 import { PrettyDecentEditorData, PrettyDecentProps } from 'index';
 import { deserialize, wrapTopLevelInlineNodesInParagraphs } from 'utils/deserialize';
 import { convertToHtml } from 'utils/convertToHtml';
-import { usePrettyDecentEditor } from './hooks/usePrettyDecentEditor';
 
 const EMPTY: PrettyDecentElement[] = [
     {
