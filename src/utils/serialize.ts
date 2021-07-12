@@ -13,10 +13,10 @@ const recurser = (node: PrettyDecentElement) => {
             string = `<strong>${string}</strong>`;
         }
         if (node.italic) {
-            string = `<em>${string}<em>`;
+            string = `<em>${string}</em>`;
         }
         if (node.underline) {
-            string = `<u>${string}<u>`;
+            string = `<u>${string}</u>`;
         }
         if (node.strikethrough) {
             string = `<strike>${string}</strike>`;
