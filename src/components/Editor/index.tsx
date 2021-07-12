@@ -123,8 +123,8 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                         fragment as PrettyDecentElement[],
                     );
                 }
-                // const padded = [{ type: 'paragraph', children: state }];
-                setValue((ps) => [...ps, ...(fragmentWithOnlyBlocks as PrettyDecentElement[])]);
+                const padded = [{ type: 'block', children: fragmentWithOnlyBlocks }];
+                setValue((ps) => [...ps, ...(padded as PrettyDecentElement[])]);
             } else {
                 initialState && setValue(initialState as PrettyDecentElement[]);
             }
