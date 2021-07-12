@@ -37,13 +37,6 @@ const EMPTY: PrettyDecentElement[] = [
 ];
 
 export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element => {
-    const editor = useMemo(
-        () => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))),
-
-        [],
-    );
-    const renderElement = useCallback((props) => <PrettyDecentElements {...props} />, []);
-    const renderLeaf = useCallback((props) => <PrettyDecentLeafs {...props} />, []);
     const {
         dispatch,
         onAttachment,
@@ -55,6 +48,13 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
         themeProps,
         placeholder,
     } = usePrettyDecentProps();
+    const editor = useMemo(
+        () => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))),
+
+        [],
+    );
+    const renderElement = useCallback((props) => <PrettyDecentElements {...props} />, []);
+    const renderLeaf = useCallback((props) => <PrettyDecentLeafs {...props} />, []);
     const toolbarOptions = useMemo(() => generateToolbar(toolbarProps?.options ?? []), [toolbarProps]);
     const { handleKeybinds } = useKeybinds(editor);
     const { setAttachments, attachments } = usePrettyDecentAttachments();
@@ -109,7 +109,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             // hotreload causes a crash
             // https://github.com/ianstormtaylor/slate/issues/3858
         };
-    }, []);
+    }, [dispatch, props]);
 
     useEffect(() => {
         if (initialState) {
@@ -124,7 +124,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                     );
                 }
                 const padded = [{ type: 'block', children: fragmentWithOnlyBlocks }];
-                setValue((ps) => [...ps, ...(padded as PrettyDecentElement[])]);
+                setValue((ps) => [...(padded as PrettyDecentElement[])]);
             } else {
                 initialState && setValue(initialState as PrettyDecentElement[]);
             }
@@ -132,13 +132,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     }, [initialState]);
     return (
         <ThemeProvider theme={themeProps}>
-            <EditorContainer
-                className={className}
-                {...bond}
-                initial="hidden"
-                animate={{ height: '100%' }}
-                transition={{ duration: 1 }}
-            >
+            <EditorContainer className={className} {...bond}>
                 <StyledSlate editor={editor} value={value} onChange={handleChange}>
                     <PrettyDecentToolbar>
                         <PrettyDecentToolbarBody toolbarOptions={toolbarOptions} />

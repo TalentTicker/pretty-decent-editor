@@ -8,7 +8,6 @@ export const StyledSlateEditor = styled(Editable)`
     margin: 0 4px;
     overflow-y: scroll;
     max-width: 100%;
-    height: 100%;
     background: #fff;
     border-left: 1px solid #979797;
     border-right: 1px solid #979797;
@@ -16,14 +15,11 @@ export const StyledSlateEditor = styled(Editable)`
     /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px; */
 `;
 
-export const StyledSlate = styled(Slate)`
-    height: 100%;
-`;
+export const StyledSlate = styled(Slate)``;
 
-export const EditorContainer = styled(motion.div)`
+export const EditorContainer = styled.div`
     display: flex;
     width: 100%;
-    /* height: 100%; */
     position: relative;
     opacity: 1;
     flex-direction: column;
