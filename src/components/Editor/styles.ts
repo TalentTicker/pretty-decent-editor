@@ -2,7 +2,7 @@ import { Editable, Slate } from 'slate-react';
 import styled from 'styled-components';
 
 type Props = {
-    height: string;
+    height?: string;
 };
 export const StyledSlateEditor = styled(Editable)<Props>`
     border-radius: 0 0 5px 5px;
