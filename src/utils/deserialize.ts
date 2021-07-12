@@ -62,6 +62,9 @@ export const deserialize = (el: HTMLElement | ChildNode | Document) => {
         if (nodeName === 'IMG') {
             return jsx('element', attrs, [{ type: 'block', text: '', children }]);
         }
+        if (!children.find((child) => child.textContent !== '')) {
+            return jsx('element', attrs, [{ text: '', ...children }]);
+        }
         return jsx('element', attrs, children);
     }
 
@@ -82,6 +85,7 @@ export const wrapTopLevelInlineNodesInParagraphs = (
     const maybePushInlineNodeParagraph = () => {
         if (inlineNodes.length > 0) {
             inlineNodes = [];
+            console.log(' in here rere');
         }
     };
 

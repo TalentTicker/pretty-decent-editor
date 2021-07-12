@@ -110,11 +110,11 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             // https://github.com/ianstormtaylor/slate/issues/3858
         };
     }, [dispatch, props]);
-
+    console.log(initialState);
     useEffect(() => {
         if (initialState) {
             if (typeof initialState === 'string') {
-                const html = convertToHtml(initialState);
+                const html = convertToHtml(initialState.replace(/\n/g, ''));
                 const fragment = deserialize(html.body);
                 let fragmentWithOnlyBlocks = fragment;
                 if (Array.isArray(fragment)) {
@@ -123,6 +123,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                         fragment as PrettyDecentElement[],
                     );
                 }
+                console.log({ fragmentWithOnlyBlocks });
                 const padded = [{ type: 'block', children: fragmentWithOnlyBlocks }];
                 setValue((ps) => [...(padded as PrettyDecentElement[])]);
             } else {
