@@ -28,6 +28,7 @@ import withImages from 'plugins/withImages';
 import { PrettyDecentEditorData, PrettyDecentProps } from 'index';
 import { deserialize, wrapTopLevelInlineNodesInParagraphs } from 'utils/deserialize';
 import { convertToHtml } from 'utils/convertToHtml';
+import { usePrettyDecentEditor } from './hooks/usePrettyDecentEditor';
 
 const EMPTY: PrettyDecentElement[] = [
     {
@@ -111,10 +112,11 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             // https://github.com/ianstormtaylor/slate/issues/3858
         };
     }, [dispatch, props]);
-    console.log(initialState);
     useEffect(() => {
         if (initialState) {
             if (typeof initialState === 'string') {
+                // For good measure, you can reset the history as well
+                // editor.history = { redos: [], undos: [] };
                 const html = convertToHtml(initialState.replace(/\n/g, ''));
                 const fragment = deserialize(html.body);
                 let fragmentWithOnlyBlocks = fragment;
@@ -124,7 +126,6 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                         fragment as PrettyDecentElement[],
                     );
                 }
-                console.log({ fragmentWithOnlyBlocks });
                 const padded = [{ type: 'block', children: fragmentWithOnlyBlocks }];
                 setValue(() => [...(padded as PrettyDecentElement[])]);
             } else {
@@ -132,6 +133,15 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             }
         }
     }, [initialState]);
+
+    useEffect(
+        () => () => {
+            const point = { path: [0, 0], offset: 0 };
+            editor.selection = { anchor: point, focus: point };
+        },
+        [],
+    );
+
     return (
         <ThemeProvider theme={themeProps}>
             <EditorContainer className={className} {...bond}>

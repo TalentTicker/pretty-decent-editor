@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { RenderElementProps } from 'slate-react';
 import { PrettyDecentImage } from './PrettyDecentImages/PrettyDecentImage';
 import { PrettyDecentTable } from './PrettyDecentTable';
@@ -7,8 +7,16 @@ import { PrettyDecentBlockQuote } from './PrettyDecentBlockQuote';
 import { PrettyDecentCode } from './PrettyDecentCode';
 import { PrettyDecentAttachmentList } from './PrettyDecentAttachmentList';
 import { PrettyDecentParagraph } from './PrettyDecentParagraph';
+import { usePrettyDecentEditor } from '../hooks/usePrettyDecentEditor';
 
 export const PrettyDecentElements = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
+    const { resetCursor } = usePrettyDecentEditor();
+    useEffect(
+        () => () => {
+            resetCursor();
+        },
+        [],
+    );
     switch (element.type) {
         case 'attachment':
             return <PrettyDecentAttachmentList {...attributes} />;

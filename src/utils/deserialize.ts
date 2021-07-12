@@ -85,7 +85,6 @@ export const wrapTopLevelInlineNodesInParagraphs = (
     const maybePushInlineNodeParagraph = () => {
         if (inlineNodes.length > 0) {
             inlineNodes = [];
-            console.log(' in here rere');
         }
     };
 
