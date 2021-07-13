@@ -12,10 +12,13 @@ export const PrettyDecentPlaceholders = (): JSX.Element => {
         Transforms.insertText(editor, event.target.value);
     };
     return (
-        <StyledSelect onChange={handleSelect} title="Placeholders" placeholder="Placeholders">
-            <option disabled selected>
-                Placeholders
-            </option>
+        <StyledSelect
+            defaultValue="Placeholders"
+            onChange={handleSelect}
+            title="Placeholders"
+            placeholder="Placeholders"
+        >
+            <option disabled>Placeholders</option>
             {placeholders?.map((placeholder, i) => (
                 <option key={`placeholder-${placeholder.value}-${i}`}>{placeholder.value}</option>
             ))}

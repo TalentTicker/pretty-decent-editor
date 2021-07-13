@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react';
 import { createEditor as createEditor, Editor, Transforms } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
-import { PrettyDecentElement } from '../../types';
+import { PrettyDecentEditor, PrettyDecentElement } from '../../types';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
 import { PrettyDecentLeafs } from './leafs';
 import { withTables } from 'plugins/withTables';
@@ -49,11 +49,11 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
         placeholder,
         height,
     } = usePrettyDecentProps();
-    const editor = useMemo(
-        () => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))),
-
-        [],
-    );
+    const editorRef = useRef<PrettyDecentEditor>();
+    if (!editorRef.current)
+        editorRef.current = withImages(withHistory(withHtml(withTables(withReact(createEditor())))));
+    const editor = editorRef.current;
+    // const [editor] = useState(() => withImages(withHistory(withHtml(withTables(withReact(createEditor()))))));
     const renderElement = useCallback((props) => <PrettyDecentElements {...props} />, []);
     const renderLeaf = useCallback((props) => <PrettyDecentLeafs {...props} />, []);
     const toolbarOptions = useMemo(() => generateToolbar(toolbarProps?.options ?? []), [toolbarProps]);
@@ -140,6 +140,10 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     useEffect(() => {
         if (initialState) {
             if (typeof initialState === 'string' && initialState !== '') {
+                Transforms.select(editor, {
+                    anchor: { path: [0, 0], offset: 0 },
+                    focus: { path: [0, 0], offset: 0 },
+                });
                 const html = convertToHtml(initialState.replace(/\n/g, ''));
                 const fragment = deserialize(html.body);
                 let fragmentWithOnlyBlocks = fragment;
@@ -150,6 +154,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                     );
                 }
                 // const padded = [{ type: 'paragraph', children: fragmentWithOnlyBlocks }];
+                // Transforms.insertFragment(editor, fragmentWithOnlyBlocks as PrettyDecentElement[]);
                 setValue(() => [...(fragmentWithOnlyBlocks as PrettyDecentElement[])]);
             } else {
                 initialState && setValue(initialState as PrettyDecentElement[]);

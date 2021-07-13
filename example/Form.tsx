@@ -11,7 +11,7 @@ export const Form = () => {
     // const { resetCursor } = usePrettyDecentEditor();
 
     const onClick = () => {
-        const newState = `<p>${faker.random.word()}</p>${string}`;
+        const newState = `<p>${faker.random.word()}</p>`;
         setState(newState);
     };
 
