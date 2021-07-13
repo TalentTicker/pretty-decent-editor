@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import React from 'react';
-import { useMedia } from 'react-use';
 import styled from 'styled-components';
 import { usePrettyDecentToolbarContext } from './hook';
 
@@ -9,7 +8,6 @@ type PrettyDecentMarkToolbarProps = {
     show?: boolean;
 };
 export const PrettyDecentMarkToolbar = ({ children }: PrettyDecentMarkToolbarProps): JSX.Element => {
-    const isMobile = useMedia('(max-width: 768px');
     const { open } = usePrettyDecentToolbarContext();
 
     return (

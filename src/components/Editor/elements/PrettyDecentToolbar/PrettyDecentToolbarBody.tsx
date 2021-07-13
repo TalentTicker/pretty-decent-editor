@@ -4,6 +4,7 @@ import { PrettyDecentBlockToolbar } from './PrettyDecentBlockToolbar';
 import { PrettyDecentMarkToolbar } from './PrettyDecentMarkToolbar';
 import { PrettyDecentButton } from '../PrettyDecentButton';
 import { generateBtnProps, generateButtonGroups, generateButtons } from './utils';
+import { useMedia } from 'react-use';
 type PrettyDecentToolbarBodyProps = {
     toolbarOptions: PrettyDecentToolbarConfigOptions[];
 };
@@ -11,6 +12,7 @@ type PrettyDecentToolbarBodyProps = {
 export const PrettyDecentToolbarBody = ({ toolbarOptions }: PrettyDecentToolbarBodyProps): JSX.Element => {
     const markButtons = useMemo(() => generateButtonGroups(toolbarOptions, 'mark'), [toolbarOptions]);
     const blockButtons = useMemo(() => generateButtonGroups(toolbarOptions, 'block'), [toolbarOptions]);
+    const isMobile = useMedia('(max-width: 768px');
     const components = useMemo(() => generateButtonGroups(toolbarOptions, 'component'), [toolbarOptions]);
     return (
         <>
@@ -22,7 +24,6 @@ export const PrettyDecentToolbarBody = ({ toolbarOptions }: PrettyDecentToolbarB
                             return generateButtons(option, prettyProps);
                         }
                     })}
-                    {components.map((comp) => comp?.component && comp.component)}
                 </>
             </PrettyDecentBlockToolbar>
             <PrettyDecentMarkToolbar>
@@ -37,6 +38,7 @@ export const PrettyDecentToolbarBody = ({ toolbarOptions }: PrettyDecentToolbarB
                             );
                         }
                     })}
+                    {components.map((comp) => comp?.component && comp.component)}
                 </>
             </PrettyDecentMarkToolbar>
         </>

@@ -11,7 +11,10 @@ type PrettyDecentBlockToolbarProps = {
 export const PrettyDecentBlockToolbar = ({ children }: PrettyDecentBlockToolbarProps): JSX.Element => {
     const isMobile = useMedia('(max-width: 480px)');
     const { setOpen, open } = usePrettyDecentToolbarContext();
-    const handleClick = () => setOpen((ps) => !ps);
+    const handleClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setOpen((ps) => !ps);
+    };
     return (
         <StyledToolbar>
             {isMobile && (
