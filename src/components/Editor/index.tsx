@@ -156,7 +156,6 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             }
         }
     }, [initialState]);
-    console.log(value);
     return (
         <ThemeProvider theme={themeProps}>
             <EditorContainer focused={focused} onMouseDown={focusEditor} className={`pdeditor ${className}`} {...bond}>
