@@ -32,21 +32,21 @@ export const generateButtons = (
         case 'table':
             return (
                 <PrettyDecentTableBtn key={`toolbar-option-${option?.id}`} {...props}>
-                    {option.icon}
+                    {option?.icon ?? null}
                 </PrettyDecentTableBtn>
             );
 
         case 'attachment':
             return (
                 <PrettyDecentAttachment key={`toolbar-option-${option?.id}`} {...props}>
-                    {option.icon}
+                    {option?.icon ?? null}
                 </PrettyDecentAttachment>
             );
 
         case 'image':
             return (
                 <PrettyDecentImageBtn key={`toolbar-option-${option?.id}`} {...props}>
-                    {option.icon}
+                    {option?.icon ?? null}
                 </PrettyDecentImageBtn>
             );
 

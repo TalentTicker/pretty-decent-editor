@@ -79,7 +79,7 @@ export type PrettyDecentButtonProps = {
 export const PrettyDecentButton = forwardRef<HTMLButtonElement, PrettyDecentButtonProps>(
     ({ format, children, type, tooltipProps, onClick, ...others }, ref): JSX.Element => {
         const editor = useSlate();
-        const checkActive = (type: 'block' | 'mark') => {
+        const checkActive = (type: PrettyDecentButtonTypes) => {
             switch (type) {
                 case 'block':
                     return isBlockActive(editor, format as PrettyDecentBlockTypes);

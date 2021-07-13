@@ -16,7 +16,7 @@ export const PrettyDecentPlaceholders = (): JSX.Element => {
             <option disabled selected>
                 Placeholders
             </option>
-            {placeholders.map((placeholder, i) => (
+            {placeholders?.map((placeholder, i) => (
                 <option key={`placeholder-${placeholder.value}-${i}`}>{placeholder.value}</option>
             ))}
         </StyledSelect>
