@@ -1,4 +1,3 @@
-import { usePrettyDecentProps } from 'components/Editor/hooks/hook';
 import React, { useRef } from 'react';
 import { ReactEditor, useSlate } from 'slate-react';
 import { PrettyDecentButtonProps } from '../PrettyDecentButton';
@@ -16,6 +15,7 @@ export const PrettyDecentImageBtn = ({ children, ...props }: PrettyDecentButtonP
                 const image = await resizeFile(file);
                 insertImage(editor, image as string);
                 ReactEditor.focus(editor);
+                event.target.value = '';
             } catch (err) {
                 console.log(err);
             }
