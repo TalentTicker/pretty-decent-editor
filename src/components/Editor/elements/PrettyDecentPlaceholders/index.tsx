@@ -20,7 +20,9 @@ export const PrettyDecentPlaceholders = (): JSX.Element => {
         >
             <option disabled>Placeholders</option>
             {placeholders?.map((placeholder, i) => (
-                <option key={`placeholder-${placeholder.value}-${i}`}>{placeholder.value}</option>
+                <option key={`placeholder-${placeholder.value}-${i}`} value={placeholder.value}>
+                    {placeholder.text}
+                </option>
             ))}
         </StyledSelect>
     );

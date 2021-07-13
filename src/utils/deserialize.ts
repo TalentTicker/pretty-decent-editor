@@ -15,10 +15,14 @@ const ELEMENT_TAGS = {
     H4: () => ({ type: 'heading-four' }),
     H5: () => ({ type: 'heading-five' }),
     H6: () => ({ type: 'heading-six' }),
-    IMG: (el?: HTMLElement & ChildNode) => ({ type: 'image', url: el?.getAttribute('src') }),
+    IMG: (el?: HTMLElement & ChildNode) => ({
+        type: 'image',
+        url: el?.getAttribute('src'),
+        alt: el?.getAttribute('alt'),
+    }),
     LI: () => ({ type: 'list-item' }),
     OL: () => ({ type: 'numbered-list' }),
-    P: () => ({ type: 'paragraph' }),
+    P: (el?: HTMLElement & ChildNode) => ({ type: 'paragraph', style: el?.getAttribute('style') }),
     PRE: () => ({ type: 'code' }),
     UL: () => ({ type: 'bulleted-list' }),
     DIV: () => ({ type: 'block' }),
@@ -59,9 +63,6 @@ export const deserialize = (el: HTMLElement | ChildNode | Document) => {
 
     if (ELEMENT_TAGS[nodeName as ElementTagNames]) {
         const attrs = ELEMENT_TAGS[nodeName as ElementTagNames](el as HTMLElement);
-        if (nodeName === 'IMG') {
-            return jsx('element', attrs, [{ type: 'block', text: '', children }]);
-        }
         if (!children.find((child) => child.textContent !== '')) {
             return jsx('element', attrs, [{ text: '', ...children }]);
         }

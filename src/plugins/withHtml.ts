@@ -1,6 +1,6 @@
 import { Transforms } from 'slate';
-import { PrettyDecentChildren, PrettyDecentEditor } from '../types';
-import { deserialize } from '../utils/deserialize';
+import { PrettyDecentChildren, PrettyDecentEditor, PrettyDecentElement } from '../types';
+import { deserialize, wrapTopLevelInlineNodesInParagraphs } from '../utils/deserialize';
 
 export const withHtml = (editor: PrettyDecentEditor): PrettyDecentEditor => {
     const { insertData, isInline, isVoid } = editor;
@@ -15,14 +15,16 @@ export const withHtml = (editor: PrettyDecentEditor): PrettyDecentEditor => {
 
     editor.insertData = (data) => {
         const html = data.getData('text/html');
-
         if (html) {
             const parsed = new DOMParser().parseFromString(html, 'text/html');
             const fragment = deserialize(parsed.body);
-            Transforms.insertFragment(editor, fragment as PrettyDecentChildren[]);
+            let fragmentWithOnlyBlocks = fragment;
+            if (Array.isArray(fragment)) {
+                fragmentWithOnlyBlocks = wrapTopLevelInlineNodesInParagraphs(editor, fragment as PrettyDecentElement[]);
+            }
+            Transforms.insertFragment(editor, fragmentWithOnlyBlocks as PrettyDecentChildren[]);
             return;
         }
-
         insertData(data);
     };
 
