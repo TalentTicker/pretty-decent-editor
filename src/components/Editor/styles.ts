@@ -1,3 +1,4 @@
+import { PrettyDecentThemeProps } from 'index';
 import { Editable, Slate } from 'slate-react';
 import styled from 'styled-components';
 
@@ -21,11 +22,15 @@ export const StyledSlateEditor = styled(Editable)<Props>`
 export const StyledSlate = styled(Slate)`
     height: 100%;
 `;
-
-export const EditorContainer = styled.div`
+type EditorContainerProps = {
+    focused?: boolean;
+    theme: PrettyDecentThemeProps;
+};
+export const EditorContainer = styled.div<EditorContainerProps>`
     display: flex;
     width: 100%;
     position: relative;
     opacity: 1;
+    outline-color: ${({ theme, focused }) => (focused ? theme.colors.primary : 'inherit')};
     flex-direction: column;
 `;

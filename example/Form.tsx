@@ -18,7 +18,7 @@ export const Form = () => {
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         // resetCursor();
-        const newState = '<div><p> </p></div>';
+        const newState = '';
         // const newState = `<p>${faker.random.word()}</p>${string}`;
         setState(newState);
     };

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react';
-import { createEditor as createEditor } from 'slate';
+import { createEditor as createEditor, Editor, Transforms } from 'slate';
 import { PrettyDecentElements } from './elements';
 import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
 import { PrettyDecentElement } from '../../types';
@@ -103,6 +103,31 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             onEditorChange && onEditorChange(returnValue);
         }
     };
+    const [focused, setFocused] = React.useState(false);
+    const savedSelection = React.useRef(editor.selection);
+    const onFocus = React.useCallback(() => {
+        setFocused(true);
+        if (!editor.selection) {
+            Transforms.select(editor, savedSelection.current ?? Editor.end(editor, []));
+        }
+    }, [editor]);
+    const onBlur = React.useCallback(() => {
+        setFocused(false);
+        savedSelection.current = editor.selection;
+    }, [editor]);
+
+    const divRef = React.useRef<HTMLDivElement>(null);
+
+    const focusEditor = React.useCallback(
+        (e: React.MouseEvent) => {
+            if (e.target === divRef.current) {
+                ReactEditor.focus(editor);
+                e.preventDefault();
+            }
+        },
+        [editor],
+    );
+
     useEffect(() => {
         dispatch && dispatch({ type: 'UPDATE', payload: props });
 
@@ -111,11 +136,10 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             // https://github.com/ianstormtaylor/slate/issues/3858
         };
     }, [dispatch, props]);
+
     useEffect(() => {
         if (initialState) {
-            if (typeof initialState === 'string') {
-                // For good measure, you can reset the history as well
-                // editor.history = { redos: [], undos: [] };
+            if (typeof initialState === 'string' && initialState !== '') {
                 const html = convertToHtml(initialState.replace(/\n/g, ''));
                 const fragment = deserialize(html.body);
                 let fragmentWithOnlyBlocks = fragment;
@@ -125,25 +149,17 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                         fragment as PrettyDecentElement[],
                     );
                 }
-                const padded = [{ type: 'block', children: fragmentWithOnlyBlocks }];
-                setValue(() => [...(padded as PrettyDecentElement[])]);
+                // const padded = [{ type: 'paragraph', children: fragmentWithOnlyBlocks }];
+                setValue(() => [...(fragmentWithOnlyBlocks as PrettyDecentElement[])]);
             } else {
                 initialState && setValue(initialState as PrettyDecentElement[]);
             }
         }
     }, [initialState]);
-
-    useEffect(
-        () => () => {
-            const point = { path: [0, 0], offset: 0 };
-            editor.selection = { anchor: point, focus: point };
-        },
-        [],
-    );
-
+    console.log(value);
     return (
         <ThemeProvider theme={themeProps}>
-            <EditorContainer className={className} {...bond}>
+            <EditorContainer focused={focused} onMouseDown={focusEditor} className={`pdeditor ${className}`} {...bond}>
                 <StyledSlate editor={editor} value={value} onChange={handleChange}>
                     <PrettyDecentToolbar>
                         <PrettyDecentToolbarBody toolbarOptions={toolbarOptions} />
@@ -154,6 +170,8 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                         placeholder={placeholder ?? ''}
                         spellCheck
                         autoFocus
+                        onFocus={onFocus}
+                        onBlur={onBlur}
                         onKeyDown={handleKeybinds}
                         data-testid="pretty-decent-editor"
                         name="pretty-decent-editor"
