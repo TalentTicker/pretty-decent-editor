@@ -9,6 +9,7 @@ import {
     PrettyDecentMarkTypes,
     PrettyDecentElement,
     PrettyDecentChildren,
+    PrettyDecentButtonTypes,
 } from '../../../types';
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
@@ -69,7 +70,7 @@ export const toggleBlock = (editor: PrettyDecentEditor, format: PrettyDecentBloc
 
 export type PrettyDecentButtonProps = {
     format: PrettyDecentMarkTypes | PrettyDecentBlockTypes;
-    type: 'block' | 'mark';
+    type: PrettyDecentButtonTypes;
     tooltipProps: TippyProps;
     onClick?: () => void;
     children: React.ReactElement | null;

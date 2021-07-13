@@ -1,3 +1,4 @@
+import { PrettyDecentPlaceholders } from 'components/Editor/elements/PrettyDecentPlaceholders';
 import React from 'react';
 import {
     BiBold,
@@ -19,10 +20,11 @@ import { PrettyDecentButtonTypes, PrettyDecentToolbarOption } from '../types';
 export type PrettyDecentToolbarConfigOptions = {
     id: string;
     tooltipText: string;
-    icon: React.ReactElement;
+    icon?: React.ReactElement;
     format: PrettyDecentToolbarOption;
     type: PrettyDecentButtonTypes;
     'data-testId': string;
+    component?: React.ReactElement;
 };
 
 export type PrettyDecentToolbarConfig = {
@@ -133,5 +135,13 @@ export const toolbarConfig: PrettyDecentToolbarConfig = {
         format: 'link',
         type: 'block',
         'data-testId': 'link-btn',
+    },
+    placeholders: {
+        id: uuid(),
+        tooltipText: 'Link',
+        component: <PrettyDecentPlaceholders />,
+        format: 'placeholders',
+        type: 'component',
+        'data-testId': 'custom-placeholders',
     },
 };

@@ -11,6 +11,7 @@ type PrettyDecentToolbarBodyProps = {
 export const PrettyDecentToolbarBody = ({ toolbarOptions }: PrettyDecentToolbarBodyProps): JSX.Element => {
     const markButtons = useMemo(() => generateButtonGroups(toolbarOptions, 'mark'), [toolbarOptions]);
     const blockButtons = useMemo(() => generateButtonGroups(toolbarOptions, 'block'), [toolbarOptions]);
+    const components = useMemo(() => generateButtonGroups(toolbarOptions, 'component'), [toolbarOptions]);
     return (
         <>
             <PrettyDecentBlockToolbar>
@@ -21,6 +22,7 @@ export const PrettyDecentToolbarBody = ({ toolbarOptions }: PrettyDecentToolbarB
                             return generateButtons(option, prettyProps);
                         }
                     })}
+                    {components.map((comp) => comp?.component && comp.component)}
                 </>
             </PrettyDecentBlockToolbar>
             <PrettyDecentMarkToolbar>

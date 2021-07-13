@@ -25,7 +25,8 @@ export type PrettyDecentBlockTypes =
     | 'heading-four'
     | 'heading-five'
     | 'heading-six'
-    | 'block';
+    | 'block'
+    | 'placeholders';
 
 export type PrettyDecentToolbarOption =
     | Exclude<
@@ -44,7 +45,7 @@ export type PrettyDecentToolbarOption =
           | 'list-item'
       >
     | PrettyDecentMarkTypes;
-export type PrettyDecentButtonTypes = 'mark' | 'block';
+export type PrettyDecentButtonTypes = 'mark' | 'block' | 'component';
 export type PrettyDecentMarkTypes = 'bold' | 'italic' | 'strikethrough' | 'underline';
 export type PrettyDecentElementTypes = PrettyDecentBlockTypes | PrettyDecentMarkTypes;
 

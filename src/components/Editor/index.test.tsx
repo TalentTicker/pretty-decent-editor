@@ -17,6 +17,7 @@ describe('<PrettyDecentEditor />', () => {
                     'numbered-list',
                     'bulleted-list',
                     'strikethrough',
+                    'placeholders'
                 ],
             }}
         />
@@ -142,6 +143,14 @@ describe('<PrettyDecentEditor />', () => {
                 userEvent.click(btn);
                 const ul = container.querySelector('[name=pretty-decent-editor] ul');
                 expect(ul).toBeInTheDocument;
+            });
+        });
+
+        describe('Components', () => {
+            it('should render a placeholder component', () => {
+                const { container } = render(<Component />);
+                const placeholders = container.querySelector('[title=Placeholders]');
+                expect(placeholders).toBeInTheDocument;
             });
         });
     });

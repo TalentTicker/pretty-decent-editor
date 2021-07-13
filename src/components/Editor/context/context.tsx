@@ -6,6 +6,13 @@ export type PrettyDecentPropContextType = PrettyDecentProps & {
     dispatch: React.Dispatch<PrettyDecentReducerActions> | undefined;
 };
 
+export const initialPlaceholders = [
+    { key: 'firstname', value: '$firstname', text: 'First Name' },
+    { key: 'lastname', value: '$lastname', text: 'Last Name' },
+    { key: 'company', value: '$company', text: 'Company' },
+    { key: 'email', value: '$email', text: 'Email' },
+];
+
 const initialContext: PrettyDecentPropContextType = {
     toolbarProps: {
         options: [
@@ -20,8 +27,10 @@ const initialContext: PrettyDecentPropContextType = {
             'strikethrough',
             'attachment',
             'image',
+            'placeholders',
         ],
     },
+    placeholders: initialPlaceholders,
     themeProps: {
         colors: {
             primary: '#EF7436',

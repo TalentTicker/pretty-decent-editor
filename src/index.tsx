@@ -1,6 +1,6 @@
 import React from 'react';
 import { PrettyDecentEditorHeart } from 'components/Editor';
-import { PrettyDecentPropContextProvider } from 'components/Editor/context/context';
+import { initialPlaceholders, PrettyDecentPropContextProvider } from 'components/Editor/context/context';
 import { PrettyDecentAttachmentContextProvider } from 'components/Editor/elements/PrettyDecentAttachmentList/context';
 import { PrettyDecentChildren, PrettyDecentElement, PrettyDecentToolbarOption } from 'types';
 
@@ -33,6 +33,7 @@ export type PrettyDecentProps = {
     toolbarProps?: {
         options: PrettyDecentToolbarOption[];
     };
+    placeholders?: typeof initialPlaceholders;
     themeProps?: PrettyDecentThemeProps;
     onEditorChange?: (newValue: PrettyDecentEditorData) => void;
     initialState?: PrettyDecentElement[] | string;
