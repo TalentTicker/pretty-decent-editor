@@ -25,10 +25,11 @@ export const PrettyDecentAttachment = ({ children, ...props }: PrettyDecentButto
                     ReactEditor.focus(editor);
                 } else {
                     prettyDecentErrorNotification({
-                        message: `File: ${file.name} was bigger then 3MB! please choose another file`,
+                        message: `File: ${file.name} was bigger then 3MB! Please choose another file`,
                     });
                 }
             });
+            event.target.value = '';
         }
     };
 

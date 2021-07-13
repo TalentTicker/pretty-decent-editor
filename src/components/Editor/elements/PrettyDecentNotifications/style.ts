@@ -6,10 +6,11 @@ export const PrettyDecentToaster = styled(motion.ul)`
     display: flex;
     justify-content: flex-end;
     position: absolute;
-    bottom: 10px;
+    bottom: -15px;
     z-index: 3;
+    flex-direction: column;
     opacity: 0;
-    right: 10px;
+    right: 15px;
 `;
 
 export const PrettyDecentToast = styled(motion.li)`
