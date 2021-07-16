@@ -67,21 +67,20 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     // Add the initial value when setting up our state.
     const [value, setValue] = useState<PrettyDecentElement[]>(EMPTY);
 
-    const handleDrop = (files: File[]) => {
+    const handleDrop = async (files: File[]) => {
         if (files) {
-            files.forEach(async (file) => {
-                if (checkFileSize(file)) {
-                    const url = await toBase64(file);
-                    const filesWithId = files.map((file) => ({ id: uuid(), file, encodedUrl: url }));
-                    onAttachment && onAttachment([...attachments, ...filesWithId]);
-                    setAttachments && setAttachments((ps) => [...ps, ...filesWithId]);
-                    ReactEditor.focus(editor);
-                } else {
-                    prettyDecentErrorNotification({
-                        message: `File: ${file.name} was bigger then 3MB! please choose another file`,
-                    });
-                }
-            });
+            const [file] = files;
+            if (checkFileSize(file)) {
+                const url = await toBase64(file);
+                const filesWithId = files.map((file) => ({ id: uuid(), file, encodedUrl: url }));
+                onAttachment && onAttachment([...attachments, ...filesWithId]);
+                setAttachments && setAttachments((ps) => [...ps, ...filesWithId]);
+                ReactEditor.focus(editor);
+            } else {
+                prettyDecentErrorNotification({
+                    message: `File: ${file.name} was bigger then 3MB! please choose another file`,
+                });
+            }
         }
     };
 

@@ -29,7 +29,7 @@ export const sharedAttachment = css`
     padding: 4px 4px 4px 4px;
     opacity: 0;
     border-radius: 5px;
-    background: #eee;
+    background: #f5f5f5;
 
     @media (max-width: 768px) {
         width: 100%;
@@ -97,4 +97,10 @@ export const AttachmentActionContainer = styled.div`
 export const AttachmentIconContainer = styled.div`
     display: flex;
     flex: 1;
+`;
+
+export const StyledText = styled.span`
+    color: blue;
+    font-size: 12px;
+    font-weight: bold;
 `;
