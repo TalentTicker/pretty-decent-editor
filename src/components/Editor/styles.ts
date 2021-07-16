@@ -33,7 +33,6 @@ export const StyledSlateEditor = styled(Editable)<Props>`
     border-left: 1px solid #979797;
     border-right: 1px solid #979797;
     border-bottom: 1px solid #979797;
-    /* ${({ isHovering }) => isHovering && hovering}; */
     ::-webkit-scrollbar {
         display: none;
     }
