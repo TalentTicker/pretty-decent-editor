@@ -139,7 +139,7 @@ export const toolbarConfig: PrettyDecentToolbarConfig = {
     placeholders: {
         id: uuid(),
         tooltipText: 'Link',
-        component: <PrettyDecentPlaceholders />,
+        component: <PrettyDecentPlaceholders key={uuid()} />,
         format: 'placeholders',
         type: 'component',
         'data-testId': 'custom-placeholders',

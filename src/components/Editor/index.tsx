@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react';
 import { createEditor as createEditor, Editor, Transforms } from 'slate';
 import { PrettyDecentElements } from './elements';
-import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
+import { EditorContainer, StyledSlateEditor, StyledSlate, DragContainer } from './styles';
 import { PrettyDecentEditor, PrettyDecentElement } from '../../types';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
 import { PrettyDecentLeafs } from './leafs';
@@ -12,7 +12,7 @@ import { withHtml } from 'plugins/withHtml';
 import { generateToolbar } from 'utils/generateToolbar';
 import { PrettyDecentToolbarBody } from './elements/PrettyDecentToolbar/PrettyDecentToolbarBody';
 import { usePrettyDecentProps } from './hooks/hook';
-import { useDropArea } from 'react-use';
+import { useDropArea, useHover, useHoverDirty } from 'react-use';
 import { PrettyDecentAttachmentList } from './elements/PrettyDecentAttachmentList';
 import { useKeybinds } from './hooks/useKeybinds';
 import { withHistory } from 'slate-history';
@@ -28,6 +28,8 @@ import withImages from 'plugins/withImages';
 import { PrettyDecentEditorData, PrettyDecentProps } from 'index';
 import { deserialize, wrapTopLevelInlineNodesInParagraphs } from 'utils/deserialize';
 import { convertToHtml } from 'utils/convertToHtml';
+import { DropAreaBond } from 'react-use/lib/useDrop';
+import { PrettyDecentDropZone } from './elements/PrettyDecentAttachmentList/PrettyDecentDropZone';
 
 const EMPTY: PrettyDecentElement[] = [
     {
@@ -58,6 +60,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     const renderLeaf = useCallback((props) => <PrettyDecentLeafs {...props} />, []);
     const toolbarOptions = useMemo(() => generateToolbar(toolbarProps?.options ?? []), [toolbarProps]);
     const { handleKeybinds } = useKeybinds(editor);
+    const [isHovering, setIsHovering] = useState(false);
     const { setAttachments, attachments } = usePrettyDecentAttachments();
     const [bond] = useDropArea({
         onFiles: (files) => handleDrop(files),
@@ -83,7 +86,14 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
             }
         }
     };
-
+    const handleDrag = (direction: 'in' | 'out', bond: DropAreaBond) => (event: React.DragEvent<Element>) => {
+        setIsHovering(direction === 'in');
+        direction === 'in' ? bond.onDragEnter(event) : bond.onDragLeave(event);
+    };
+    const handleDropEvent = (bond: DropAreaBond) => (event: React.DragEvent<Element>) => {
+        setIsHovering(false);
+        bond.onDrop(event);
+    };
     const handleChange = (newValue: PrettyDecentElement[]) => {
         if (typeof newValue !== 'undefined' && newValue.length > 0) {
             setValue(newValue);
@@ -162,7 +172,7 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
     }, [initialState]);
     return (
         <ThemeProvider theme={themeProps}>
-            <EditorContainer focused={focused} onMouseDown={focusEditor} className={`pdeditor ${className}`} {...bond}>
+            <EditorContainer focused={focused} onMouseDown={focusEditor} className={`pdeditor ${className}`}>
                 <StyledSlate editor={editor} value={value} onChange={handleChange}>
                     <PrettyDecentToolbar>
                         <PrettyDecentToolbarBody toolbarOptions={toolbarOptions} />
@@ -180,7 +190,10 @@ export const PrettyDecentEditorHeart = (props: PrettyDecentProps): JSX.Element =
                         name="pretty-decent-editor"
                         renderLeaf={renderLeaf}
                         renderElement={renderElement}
-                    />
+                        onDragEnter={handleDrag('in', bond)}
+                        // onDragLeave={handleDrag('out', bond)}
+                    ></StyledSlateEditor>
+                    {isHovering && <PrettyDecentDropZone {...bond} onDrop={handleDropEvent(bond)} />}
                 </StyledSlate>
                 <PrettyDecentNotifications />
             </EditorContainer>
