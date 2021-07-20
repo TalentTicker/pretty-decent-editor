@@ -7,7 +7,7 @@ export type PrettyDecentToolbarContextType = {
 };
 
 const initContext = {
-    open: false,
+    open: true,
     setOpen: () => undefined,
 };
 
@@ -19,8 +19,7 @@ type PrettyDecentToolbarContextProviderProps = {
 export const PrettyDecentToolbarContextProvider = ({
     children,
 }: PrettyDecentToolbarContextProviderProps): JSX.Element => {
-    const isMobile = useMobile();
-    const [open, setOpen] = useState(!isMobile);
+    const [open, setOpen] = useState(true);
 
     return (
         <PrettyDecentToolbarContext.Provider value={{ open, setOpen }}>{children}</PrettyDecentToolbarContext.Provider>

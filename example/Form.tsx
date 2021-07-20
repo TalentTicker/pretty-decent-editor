@@ -27,7 +27,7 @@ export const Form = () => {
     return (
         <>
             <button onClick={onClick}>New State</button>
-            <form onSubmit={onSubmit} style={{ height: '50vh', width: 600 }}>
+            <form onSubmit={onSubmit} style={{ height: '50vh', width: '100%' }}>
                 <PrettyDecentEditor
                     initialState={state}
                     height="50vh"

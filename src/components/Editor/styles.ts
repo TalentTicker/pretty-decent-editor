@@ -27,7 +27,7 @@ export const StyledSlateEditor = styled(Editable)<Props>`
     margin: 0 4px;
     position: relative;
     overflow-y: scroll;
-    max-width: 100%;
+    max-width: calc(100vw - 8px);
     background: #fff;
     height: ${({ height }) => height ?? '100%'};
     border-left: 1px solid #979797;
