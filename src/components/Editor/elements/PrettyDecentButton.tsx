@@ -91,7 +91,6 @@ export const PrettyDecentButton = forwardRef<HTMLButtonElement, PrettyDecentButt
         const isActive = checkActive(type);
 
         const handleClick = (event: React.MouseEvent) => {
-            event.stopPropagation();
             event.preventDefault();
             if (!isActive && onClick) {
                 onClick();

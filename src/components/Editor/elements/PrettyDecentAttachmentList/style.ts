@@ -16,6 +16,7 @@ export const StyledList = styled(motion.ul)`
     padding: 4px;
     margin: 0 4px;
     max-height: 200px;
+    min-height: 100%;
     overflow-y: scroll;
     ${hideScrollbars}/* height: 100%; */
     /* position: absolute; */
