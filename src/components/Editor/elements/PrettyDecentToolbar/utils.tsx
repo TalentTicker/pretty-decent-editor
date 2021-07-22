@@ -5,6 +5,7 @@ import { PrettyDecentTableBtn } from '../PrettyDecentTableBtn';
 import { PrettyDecentAttachment } from '../PrettyDecentAttachment';
 import { PrettyDecentImageBtn } from '../PrettyDecentImages/PrettyDecentImageBtn';
 import { PrettyDecentButton } from '../PrettyDecentButton';
+import { PrettyDecentLinkBtn } from '../PrettyDecentLink/PrettyDecentLinkBtn';
 
 export const generateButtonGroups = (
     options: PrettyDecentToolbarConfigOptions[],
@@ -49,7 +50,12 @@ export const generateButtons = (
                     {option?.icon ?? null}
                 </PrettyDecentImageBtn>
             );
-
+        case 'link':
+            return (
+                <PrettyDecentLinkBtn key={`toolbar-option-${option?.id}`} {...props}>
+                    {option?.icon ?? null}
+                </PrettyDecentLinkBtn>
+            );
         default:
             return (
                 <PrettyDecentButton key={`toolbar-option-${option?.id}`} {...props}>

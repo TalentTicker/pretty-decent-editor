@@ -14,6 +14,7 @@ describe('<PrettyDecentEditor />', () => {
                     'code',
                     'block-quote',
                     'table',
+                    'link',
                     'numbered-list',
                     'bulleted-list',
                     'strikethrough',
@@ -73,6 +74,11 @@ describe('<PrettyDecentEditor />', () => {
             render(<Component />);
             const bold = screen.getByTestId('ul-btn');
             expect(bold).toBeInTheDocument();
+        });
+        it('should render a link button as default', () => {
+            render(<Component />);
+            const link = screen.getByTestId('link-btn');
+            expect(link).toBeInTheDocument();
         });
     });
 
