@@ -36,6 +36,9 @@ export const StyledSlateEditor = styled(Editable)<Props>`
     ::-webkit-scrollbar {
         display: none;
     }
+    strong {
+        font-weight: bold !important;
+    }
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 `;
