@@ -2,7 +2,7 @@ import React from 'react';
 import { PrettyDecentEditorHeart } from 'components/Editor';
 import { initialPlaceholders, PrettyDecentPropContextProvider } from 'components/Editor/context/context';
 import { PrettyDecentAttachmentContextProvider } from 'components/Editor/elements/PrettyDecentAttachmentList/context';
-import { PrettyDecentChildren, PrettyDecentElement, PrettyDecentToolbarOption } from 'types';
+import { PrettyDecentBlockTypes, PrettyDecentChildren, PrettyDecentElement, PrettyDecentMarkTypes } from 'types';
 
 export type PrettyDecentThemeProps = {
     colors: {
@@ -23,6 +23,24 @@ export type PrettyDecentEditorData = {
     toEncodedString: () => string;
     toHTML: () => string;
 };
+
+export type PrettyDecentToolbarOption =
+    | Exclude<
+          PrettyDecentBlockTypes,
+          | 'table-row'
+          | 'heading-one'
+          | 'heading-two'
+          | 'table-row'
+          | 'table-col'
+          | 'table-cell'
+          | 'heading-three'
+          | 'heading-four'
+          | 'heading-five'
+          | 'heading-six'
+          | 'paragraph'
+          | 'list-item'
+      >
+    | PrettyDecentMarkTypes;
 
 export type PrettyDecentProps = {
     className?: string;

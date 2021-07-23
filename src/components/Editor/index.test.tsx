@@ -18,7 +18,8 @@ describe('<PrettyDecentEditor />', () => {
                     'numbered-list',
                     'bulleted-list',
                     'strikethrough',
-                    'placeholders'
+                    'placeholders',
+                    'attachment'
                 ],
             }}
         />
@@ -75,10 +76,15 @@ describe('<PrettyDecentEditor />', () => {
             const bold = screen.getByTestId('ul-btn');
             expect(bold).toBeInTheDocument();
         });
-        it('should render a link button as default', () => {
+        it('should render a link button', () => {
             render(<Component />);
             const link = screen.getByTestId('link-btn');
             expect(link).toBeInTheDocument();
+        });
+        it('should render a attachment button', () => {
+            render(<Component />);
+            const attachment = screen.getByTestId('attachment-btn');
+            expect(attachment).toBeInTheDocument();
         });
     });
 

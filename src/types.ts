@@ -28,23 +28,6 @@ export type PrettyDecentBlockTypes =
     | 'block'
     | 'placeholders';
 
-export type PrettyDecentToolbarOption =
-    | Exclude<
-          PrettyDecentBlockTypes,
-          | 'table-row'
-          | 'heading-one'
-          | 'heading-two'
-          | 'table-row'
-          | 'table-col'
-          | 'table-cell'
-          | 'heading-three'
-          | 'heading-four'
-          | 'heading-five'
-          | 'heading-six'
-          | 'paragraph'
-          | 'list-item'
-      >
-    | PrettyDecentMarkTypes;
 export type PrettyDecentButtonTypes = 'mark' | 'block' | 'component';
 export type PrettyDecentMarkTypes = 'bold' | 'italic' | 'strikethrough' | 'underline';
 export type PrettyDecentElementTypes = PrettyDecentBlockTypes | PrettyDecentMarkTypes;
