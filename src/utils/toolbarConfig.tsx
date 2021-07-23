@@ -1,4 +1,5 @@
 import { PrettyDecentPlaceholders } from 'components/Editor/elements/PrettyDecentPlaceholders';
+import { PrettyDecentToolbarOption } from 'index';
 import React from 'react';
 import {
     BiBold,
@@ -15,7 +16,7 @@ import {
     BiUnderline,
 } from 'react-icons/bi';
 import { v4 as uuid } from 'uuid';
-import { PrettyDecentButtonTypes, PrettyDecentToolbarOption } from '../types';
+import { PrettyDecentButtonTypes } from '../types';
 
 export type PrettyDecentToolbarConfigOptions = {
     id: string;

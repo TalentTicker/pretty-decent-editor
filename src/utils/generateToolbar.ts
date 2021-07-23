@@ -1,4 +1,4 @@
-import { PrettyDecentToolbarOption } from '../types';
+import { PrettyDecentToolbarOption } from 'index';
 import { toolbarConfig } from './toolbarConfig';
 
 const findConfig = (option: PrettyDecentToolbarOption) => {
