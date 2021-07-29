@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledInput = styled.input`
-    height: 25px !important;
+    min-height: 25px;
     border-radius: 5px;
     outline: none;
     border: 1px solid #979797;
@@ -18,6 +18,8 @@ export const InputContainer = styled.div`
     border-radius: 5px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     padding: 16px;
+    margin-right: 36px;
+    left: 25%;
     min-width: 300px;
     @media (max-width: 478px) {
         right: 10px;
