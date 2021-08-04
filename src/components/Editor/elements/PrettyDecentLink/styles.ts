@@ -22,7 +22,7 @@ export const InputContainer = styled.div`
     left: 25%;
     min-width: 300px;
     @media (max-width: 478px) {
-        right: 10px;
+        left: 0;
     }
 `;
 
