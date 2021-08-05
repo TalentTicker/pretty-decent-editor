@@ -20,15 +20,11 @@ export const createTable = ({ editor, cols, rows }: CreateTableProps): void => {
 
     const newProperties: PrettyDecentElement = {
         type: 'table',
-        children: [...rowData],
+        children: rowData,
     };
     if (isActive) {
-        const paragraph: PrettyDecentElement = {
-            type: 'paragraph',
-            children: [{ text: '' }],
-        };
-        Transforms.setNodes(editor, paragraph);
+        Transforms.insertText(editor, '');
     } else {
-        Transforms.insertNodes(editor, newProperties);
+        Transforms.setNodes(editor, newProperties);
     }
 };

@@ -10,7 +10,6 @@ export const withHtml = (editor: PrettyDecentEditor): PrettyDecentEditor => {
     };
 
     editor.isVoid = (element) => {
-        console.log(element);
         return element.type === 'image' ? true : isVoid(element);
     };
 
