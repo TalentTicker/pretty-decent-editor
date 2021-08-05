@@ -2,7 +2,7 @@ import React from 'react';
 import { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Transforms } from 'slate';
+import { Editor, Transforms } from 'slate';
 import { ReactEditor } from 'slate-react';
 import { IoMdClose } from 'react-icons/io';
 import { useSlateStatic } from 'slate-react';
@@ -35,7 +35,8 @@ export const LinkForm = ({ handleClose }: LinkFormProps): JSX.Element => {
 
     const handleInsertion = () => {
         ReactEditor.focus(editor);
-        Transforms.insertNodes(editor, { type: 'link', url, children: [{ text: alias }] });
+        const textToInsert = alias === '' ? url : alias;
+        Transforms.insertNodes(editor, { type: 'link', url, children: [{ text: textToInsert }] });
         handleClose();
     };
     const handleCloseBtn = (event: React.MouseEvent) => {
@@ -45,6 +46,8 @@ export const LinkForm = ({ handleClose }: LinkFormProps): JSX.Element => {
     };
 
     useEffect(() => {
+        const selectedText = Editor.string(editor, editor.selection ?? [0, 0]);
+        setValues((ps) => ({ ...ps, alias: selectedText }));
         ref.current?.focus();
     }, []);
     return (
@@ -52,16 +55,17 @@ export const LinkForm = ({ handleClose }: LinkFormProps): JSX.Element => {
             <CloseBtn type="button" onClick={handleCloseBtn}>
                 <IoMdClose />
             </CloseBtn>
-            <StyledLabel htmlFor="alias">Link alias</StyledLabel>
+            <StyledLabel htmlFor="alias">Text to display</StyledLabel>
             <StyledInput
                 ref={ref}
                 placeholder="Example Link"
                 type="text"
                 name="alias"
                 id="alias"
+                value={alias}
                 onChange={handleChange}
             />
-            <StyledLabel htmlFor="url">Link URL</StyledLabel>
+            <StyledLabel htmlFor="url">Link URL*</StyledLabel>
             <StyledInput placeholder="https://example.com" type="text" name="url" id="url" onChange={handleChange} />
             <BtnContainer>
                 <SubmitBtn disabled={disabled} type="button" onClick={handleSubmit}>
