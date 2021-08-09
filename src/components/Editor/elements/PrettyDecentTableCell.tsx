@@ -7,6 +7,7 @@ import { useTableContext } from './PrettyDecentTableBtn/hooks';
 export const StyledTd = styled.td`
     min-width: 100px;
     padding: 4px;
+    min-height: 20px;
     /* flex-direction: column; */
     /* height: 75px; */
     /* border: 1px solid #eee; */
@@ -25,7 +26,13 @@ export const PrettyDecentTableCell = forwardRef(
             setState && setState((ps) => ({ ...ps, openControls: true }));
         }, []);
         return (
-            <StyledTd aria-multiline="true" style={{ border }} onClick={openControls} {...others} ref={ref}>
+            <StyledTd
+                aria-multiline="true"
+                style={{ border, lineHeight: 0 }}
+                onClick={openControls}
+                {...others}
+                ref={ref}
+            >
                 {children}
             </StyledTd>
         );
