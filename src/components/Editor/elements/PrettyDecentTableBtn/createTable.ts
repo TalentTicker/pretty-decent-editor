@@ -17,7 +17,7 @@ export const createTable = ({ editor, cols, rows }: CreateTableProps): void => {
         type: 'table-row',
         children: Array.from({ length: cols }, () => ({
             type: 'table-cell',
-            children: [{ type: 'paragraph', children: [{ text: '' }] }],
+            children: [{ type: 'block', children: [{ type: 'paragraph', children: [{ text: '' }] }] }],
         })),
     })) as PrettyDecentChildren[];
 
