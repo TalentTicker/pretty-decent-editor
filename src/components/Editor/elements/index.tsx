@@ -6,6 +6,8 @@ import { PrettyDecentTableCell } from './PrettyDecentTableCell';
 import { PrettyDecentBlockQuote } from './PrettyDecentBlockQuote';
 import { PrettyDecentCode } from './PrettyDecentCode';
 import { PrettyDecentAttachmentList } from './PrettyDecentAttachmentList';
+import { PrettyDecentTableRow } from './PrettyDecentTableRow';
+import { TableContextProvider } from './PrettyDecentTableBtn/context';
 export const PrettyDecentElements = ({ attributes, children, element }: RenderElementProps): JSX.Element => {
     switch (element.type) {
         case 'attachment':
@@ -13,9 +15,13 @@ export const PrettyDecentElements = ({ attributes, children, element }: RenderEl
         case 'code':
             return <PrettyDecentCode {...attributes}>{children}</PrettyDecentCode>;
         case 'table':
-            return <PrettyDecentTable {...attributes}>{children}</PrettyDecentTable>;
+            return (
+                <TableContextProvider>
+                    <PrettyDecentTable {...attributes}>{children}</PrettyDecentTable>
+                </TableContextProvider>
+            );
         case 'table-row':
-            return <tr {...attributes}>{children}</tr>;
+            return <PrettyDecentTableRow {...attributes}>{children}</PrettyDecentTableRow>;
         case 'table-cell':
             return <PrettyDecentTableCell {...attributes}>{children}</PrettyDecentTableCell>;
         case 'block-quote':

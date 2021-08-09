@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSlate } from 'slate-react';
 import styled from 'styled-components';
 import { createTable } from './createTable';
+import { useTableContext } from './hooks';
 
 const SelectionBox = styled.div`
     /* width: 200px; */
@@ -10,6 +11,7 @@ const SelectionBox = styled.div`
     top: 50px;
     display: 'inline-block';
     z-index: 131313;
+    text-align: center;
     background: white;
     border: 1px solid #eee;
     border-radius: 5px;
@@ -23,7 +25,7 @@ const Col = styled.span<ColProps>`
     height: calc(200px / 6);
     display: inline-block;
     margin: 1px;
-    background: ${({ selected }) => (selected ? 'orange' : 'white')};
+    background: ${({ selected, theme }) => (selected ? theme.colors.primary : 'white')};
 `;
 
 const Row = styled.div`
@@ -42,7 +44,7 @@ type SelectionProps = {
 export const Selection = ({ setClose, ...others }: SelectionProps): JSX.Element => {
     const [size, setSize] = useState(initState);
     const editor = useSlate();
-
+    const { setState } = useTableContext();
     const handleHover = (i: number, j: number) => () => {
         setSize({ cols: j + 1, rows: i + 1 });
     };
@@ -50,6 +52,7 @@ export const Selection = ({ setClose, ...others }: SelectionProps): JSX.Element 
 
     const handleSubmit = () => {
         createTable({ editor, rows: size.rows, cols: size.cols });
+        setState && setState((ps) => ({ ...ps, openControls: true }));
         setClose(true);
     };
     return (
@@ -60,6 +63,7 @@ export const Selection = ({ setClose, ...others }: SelectionProps): JSX.Element 
                         const isSelected = i <= size.rows - 1 && j <= size.cols - 1;
                         return (
                             <Col
+                                data-testid={`table-grid-row${i + 1}-col${j + 1}`}
                                 key={`col-${j}`}
                                 selected={isSelected}
                                 onMouseEnter={handleHover(i, j)}

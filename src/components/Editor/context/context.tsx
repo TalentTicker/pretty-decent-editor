@@ -21,7 +21,7 @@ const initialContext: PrettyDecentPropContextType = {
             'underline',
             'code',
             'block-quote',
-            // 'table',
+            'table',
             'link',
             'numbered-list',
             'bulleted-list',

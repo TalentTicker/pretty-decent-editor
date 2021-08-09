@@ -3,6 +3,8 @@ import { PrettyDecentEditorHeart } from 'components/Editor';
 import { initialPlaceholders, PrettyDecentPropContextProvider } from 'components/Editor/context/context';
 import { PrettyDecentAttachmentContextProvider } from 'components/Editor/elements/PrettyDecentAttachmentList/context';
 import { PrettyDecentBlockTypes, PrettyDecentChildren, PrettyDecentElement, PrettyDecentMarkTypes } from 'types';
+import { Predicate } from 'utils/match';
+import { Path, Point } from 'slate';
 
 export type PrettyDecentThemeProps = {
     colors: {
@@ -63,6 +65,17 @@ export type PrettyDecentProps = {
     height?: string;
     onSubmit?: () => Promise<void>;
 };
+export interface EditorAboveOptions<T = PrettyDecentElement> extends MatchOptions<T> {
+    at?: Range | Path | Point;
+    mode?: 'highest' | 'lowest';
+    voids?: boolean;
+}
+export type NodeMatch<T = PrettyDecentElement> = Predicate<T>;
+
+export interface MatchOptions<T = PrettyDecentElement> {
+    match?: NodeMatch<T>;
+    block?: boolean;
+}
 
 export const PrettyDecentEditor = (props: PrettyDecentProps): JSX.Element => (
     <PrettyDecentPropContextProvider>

@@ -8,7 +8,6 @@ export const withHtml = (editor: PrettyDecentEditor): PrettyDecentEditor => {
     editor.isInline = (element) => {
         return element.type === 'link' ? true : isInline(element);
     };
-
     editor.isVoid = (element) => {
         return element.type === 'image' ? true : isVoid(element);
     };

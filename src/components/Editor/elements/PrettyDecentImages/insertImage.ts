@@ -4,10 +4,11 @@ import { PrettyDecentChildren, PrettyDecentEditor } from '../../../../types';
 
 export const insertImage = (editor: PrettyDecentEditor, file: string): void => {
     const { selection } = editor;
+    const text = { text: '' };
     const image = [
-        { type: 'paragraph', children: [{ text: '' }] },
-        { type: 'image', url: file, children: [{ text: '' }] },
-        { type: 'paragraph', children: [{ text: '' }] },
+        { type: 'paragraph', children: [text] },
+        { type: 'image', url: file, children: [text] },
+        { type: 'paragraph', children: [text] },
     ] as PrettyDecentChildren;
 
     ReactEditor.focus(editor);

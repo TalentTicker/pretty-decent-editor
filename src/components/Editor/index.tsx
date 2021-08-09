@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ReactEditor as ReactEditor, withReact as withReact } from 'slate-react';
 import { createEditor as createEditor, Editor, Transforms } from 'slate';
 import { PrettyDecentElements } from './elements';
-import { EditorContainer, StyledSlateEditor, StyledSlate, DragContainer } from './styles';
+import { EditorContainer, StyledSlateEditor, StyledSlate } from './styles';
 import { PrettyDecentEditor, PrettyDecentElement } from '../../types';
 import { PrettyDecentToolbar } from './elements/PrettyDecentToolbar/PrettyDecentToolbar';
 import { PrettyDecentLeafs } from './leafs';
@@ -12,7 +12,7 @@ import { withHtml } from 'plugins/withHtml';
 import { generateToolbar } from 'utils/generateToolbar';
 import { PrettyDecentToolbarBody } from './elements/PrettyDecentToolbar/PrettyDecentToolbarBody';
 import { usePrettyDecentProps } from './hooks/hook';
-import { useDropArea, useHover, useHoverDirty } from 'react-use';
+import { useDropArea } from 'react-use';
 import { PrettyDecentAttachmentList } from './elements/PrettyDecentAttachmentList';
 import { useKeybinds } from './hooks/useKeybinds';
 import { withHistory } from 'slate-history';

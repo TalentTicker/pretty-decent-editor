@@ -1,66 +1,100 @@
-import { Editor, Point, Range, Element as SlateElement } from 'slate';
-import { PrettyDecentEditor } from '../types';
+import { Editor, Point, Range, Element as SlateElement, Transforms, Node } from 'slate';
+import { PrettyDecentEditor, PrettyDecentElement } from '../types';
+
+export const isCollapsed = (range?: Range | null) => !!range && Range.isCollapsed(range);
 
 export const withTables = (editor: PrettyDecentEditor) => {
-    const { deleteBackward, deleteForward, insertBreak } = editor;
+    const matchCells = (node: Node) => {
+        return SlateElement.isElement(node) && node.type === 'table-cell';
+    };
 
-    editor.deleteBackward = (unit) => {
+    const { deleteBackward, deleteForward, deleteFragment, insertText } = editor;
+
+    const preventDeleteCell = (operation: any, pointCallback: any, nextPoint: any) => (unit: any) => {
         const { selection } = editor;
 
-        if (selection && Range.isCollapsed(selection)) {
-            const [cell] = Editor.nodes(editor, {
-                match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'table-cell',
+        if (isCollapsed(selection)) {
+            const [cell] = Editor.nodes<PrettyDecentElement>(editor, {
+                match: matchCells,
             });
-
             if (cell) {
+                // Prevent deletions within a cell
                 const [, cellPath] = cell;
-                const start = Editor.start(editor, cellPath);
+                const start = pointCallback(editor, cellPath);
 
-                if (Point.equals(selection.anchor, start)) {
+                if (selection && Point.equals(selection.anchor, start)) {
                     return;
                 }
+            } else {
+                // Prevent deleting cell when selection is before or after a table
+                const next = nextPoint(editor, selection, { unit });
+                const [nextCell] = Editor.nodes(editor, {
+                    match: matchCells,
+                    at: next,
+                });
+                if (nextCell) return;
             }
         }
 
-        deleteBackward(unit);
+        operation(unit);
     };
 
-    editor.deleteForward = (unit) => {
+    editor.deleteFragment = () => {
         const { selection } = editor;
-
-        if (selection && Range.isCollapsed(selection)) {
-            const [cell] = Editor.nodes(editor, {
-                match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'table-cell',
+        const [start] = Editor.nodes(editor, {
+            match: matchCells,
+            at: selection?.anchor.path,
+        });
+        const [end] = Editor.nodes(editor, {
+            match: matchCells,
+            at: selection?.focus.path,
+        });
+        // Skip deletes if they start or end in a table cell, unless start & end in the same cell
+        if ((start || end) && start?.[0] !== end?.[0]) {
+            // Clear cells content
+            const cells = Editor.nodes(editor, {
+                match: matchCells,
             });
-
-            if (cell) {
-                const [, cellPath] = cell;
-                const end = Editor.end(editor, cellPath);
-
-                if (Point.equals(selection.anchor, end)) {
-                    return;
+            for (const [, path] of cells) {
+                for (const [, childPath] of Node.children(editor, path, {
+                    reverse: true,
+                })) {
+                    Transforms.removeNodes(editor, { at: childPath });
                 }
             }
+            Transforms.collapse(editor);
+            return;
         }
-
-        deleteForward(unit);
+        deleteFragment();
     };
 
-    editor.insertBreak = () => {
+    editor.insertText = (text) => {
         const { selection } = editor;
-
-        if (selection) {
-            const [table] = Editor.nodes(editor, {
-                match: (n) => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === 'table',
-            });
-
-            if (table) {
+        const [start] = Editor.nodes(editor, {
+            match: matchCells,
+            at: selection?.anchor.path,
+        });
+        const [end] = Editor.nodes(editor, {
+            match: matchCells,
+            at: selection?.focus.path,
+        });
+        // Collapse selection if multiple cells are selected to avoid breaking the table
+        if (!isCollapsed(selection) && (start || end) && start?.[0] !== end?.[0]) {
+            const [cell] = Editor.nodes(editor, { match: matchCells });
+            if (cell) {
+                Transforms.collapse(editor, { edge: 'end' });
+                insertText(text);
                 return;
             }
         }
-
-        insertBreak();
+        insertText(text);
     };
+
+    // prevent deleting cells with deleteBackward
+    editor.deleteBackward = preventDeleteCell(deleteBackward, Editor.start, Editor.before);
+
+    // prevent deleting cells with deleteForward
+    editor.deleteForward = preventDeleteCell(deleteForward, Editor.end, Editor.after);
 
     return editor;
 };

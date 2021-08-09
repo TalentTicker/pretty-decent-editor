@@ -11,10 +11,10 @@ export const PrettyDecentImage = ({
     const focused = useFocused();
     return (
         <StyledImage {...attributes} selected={selected} focused={focused}>
-            <div contentEditable={false}>
-                <img src={element.url} />
-            </div>
+            {/* <div contentEditable={false}> */}
+            <img src={element.url} />
             {children}
+            {/* </div> */}
         </StyledImage>
     );
 };
@@ -25,7 +25,9 @@ type StyledImageProps = {
 };
 export const StyledImage = styled.div<StyledImageProps>`
     ${({ selected, focused }) => css`
+        width: 100%;
         img {
+            /* width: 100%; */
             box-shadow: ${selected && focused ? '0 0 0 2px blue;' : 'none'};
             /* max-width: 100%; */
         }

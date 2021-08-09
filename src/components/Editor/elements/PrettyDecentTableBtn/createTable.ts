@@ -1,5 +1,7 @@
 import { isBlockActive } from 'components/Editor/elements/PrettyDecentButton';
 import { Transforms } from 'slate';
+import { jsx } from 'slate-hyperscript';
+import { ReactEditor } from 'slate-react';
 import { PrettyDecentChildren, PrettyDecentEditor, PrettyDecentElement } from '../../../../types';
 
 type CreateTableProps = {
@@ -7,6 +9,7 @@ type CreateTableProps = {
     cols: number;
     rows: number;
 };
+
 export const createTable = ({ editor, cols, rows }: CreateTableProps): void => {
     const isActive = isBlockActive(editor, 'table');
     // create Table Node
@@ -14,17 +17,18 @@ export const createTable = ({ editor, cols, rows }: CreateTableProps): void => {
         type: 'table-row',
         children: Array.from({ length: cols }, () => ({
             type: 'table-cell',
-            children: [{ text: '' }],
+            children: [{ type: 'block', children: [{ text: '' }] }],
         })),
     })) as PrettyDecentChildren[];
 
-    const newProperties: PrettyDecentElement = {
+    const table: PrettyDecentElement = {
         type: 'table',
         children: rowData,
     };
     if (isActive) {
-        Transforms.insertText(editor, '');
+        Transforms.insertNodes(editor, jsx('element', undefined, [{ type: 'block', children: [{ text: '' }] }]));
     } else {
-        Transforms.setNodes(editor, newProperties);
+        ReactEditor.focus(editor);
+        Transforms.insertNodes(editor, table);
     }
 };
