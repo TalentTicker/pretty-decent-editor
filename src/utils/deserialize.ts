@@ -26,6 +26,9 @@ const ELEMENT_TAGS = {
     PRE: () => ({ type: 'code' }),
     UL: () => ({ type: 'bulleted-list' }),
     DIV: () => ({ type: 'block' }),
+    TABLE: () => ({ type: 'table' }),
+    TR: () => ({ type: 'table-row' }),
+    TD: () => ({ type: 'table-cell' }),
 };
 
 // COMPAT: `B` is omitted here because Google Docs uses `<b>` in weird ways.
