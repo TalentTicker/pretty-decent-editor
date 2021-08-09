@@ -41,6 +41,7 @@ export interface PrettyDecentChildren {
     code?: boolean;
     underline?: boolean;
     url?: string;
+    border?: string;
     strikethrough?: boolean;
     type?: PrettyDecentElementTypes;
     children?: PrettyDecentChildren[];

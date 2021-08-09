@@ -1,8 +1,11 @@
+import { matchCells } from 'plugins/withTables';
 import React from 'react';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { ForwardedRef, forwardRef } from 'react';
+import { Editor, Transforms } from 'slate';
+import { useSlateStatic } from 'slate-react';
 import styled from 'styled-components';
 import { useThreadedRef } from 'utils/useThreadedRef';
 import { useTableContext } from './PrettyDecentTableBtn/hooks';
@@ -23,7 +26,7 @@ type PrettyDecentTableCellProps = {
 export const PrettyDecentTableCell = forwardRef(
     ({ children, ...others }: PrettyDecentTableCellProps, ref: ForwardedRef<HTMLTableCellElement>): JSX.Element => {
         const { state, setState } = useTableContext();
-        const border = state.border ? '1px solid #eee' : 'inherit';
+        const border = state.border ? '1px solid #eee' : 'none';
         const [borderState, setBorderState] = useState(border);
 
         const cellRef = useThreadedRef<HTMLTableCellElement>(ref);
@@ -32,7 +35,9 @@ export const PrettyDecentTableCell = forwardRef(
         }, []);
 
         useEffect(() => {
-            setBorderState(cellRef.current?.style.border ?? state.border ? border : 'none');
+            const newBorder = cellRef.current?.style.border ?? state.border ? border : 'none';
+            setBorderState(newBorder);
+            setState && setState((ps) => ({ ...ps, borderStyle: newBorder }));
         }, [cellRef, state.border]);
 
         return (

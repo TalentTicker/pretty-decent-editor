@@ -3,11 +3,10 @@ import { PrettyDecentEditor, PrettyDecentElement } from '../types';
 
 export const isCollapsed = (range?: Range | null) => !!range && Range.isCollapsed(range);
 
+export const matchCells = (node: Node) => {
+    return SlateElement.isElement(node) && node.type === 'table-cell';
+};
 export const withTables = (editor: PrettyDecentEditor) => {
-    const matchCells = (node: Node) => {
-        return SlateElement.isElement(node) && node.type === 'table-cell';
-    };
-
     const { deleteBackward, deleteForward, deleteFragment, insertText } = editor;
 
     const preventDeleteCell = (operation: any, pointCallback: any, nextPoint: any) => (unit: any) => {

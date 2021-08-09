@@ -8,6 +8,7 @@ export type TableContextType = {
 
 type TableState = {
     border: boolean;
+    borderStyle?: string;
     openControls: boolean;
 };
 
