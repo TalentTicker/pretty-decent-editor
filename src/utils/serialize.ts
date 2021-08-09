@@ -37,6 +37,7 @@ const recurser = (node: PrettyDecentElement) => {
         case 'table-row':
             return `<tr>${children}</tr>`;
         case 'table-cell':
+            //@ts-ignore
             return `<td style="${node.style}">${children}</td>`;
         case 'image':
             //@ts-expect-error
