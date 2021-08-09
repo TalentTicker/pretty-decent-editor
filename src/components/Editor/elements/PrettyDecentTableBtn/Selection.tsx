@@ -52,7 +52,7 @@ export const Selection = ({ setClose, ...others }: SelectionProps): JSX.Element 
 
     const handleSubmit = () => {
         createTable({ editor, rows: size.rows, cols: size.cols });
-        setState && setState((ps) => ({ ...ps, openControls: true }));
+        setState && setState((ps) => ({ ...ps, openControls: true, border: true, borderStyle: '1px solid #eee' }));
         setClose(true);
     };
     return (

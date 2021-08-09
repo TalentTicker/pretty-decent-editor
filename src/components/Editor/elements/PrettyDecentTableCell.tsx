@@ -1,23 +1,16 @@
-import { matchCells } from 'plugins/withTables';
 import React from 'react';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
-import { useState } from 'react';
 import { ForwardedRef, forwardRef } from 'react';
-import { Editor, Transforms } from 'slate';
-import { useSlateStatic } from 'slate-react';
 import styled from 'styled-components';
 import { useThreadedRef } from 'utils/useThreadedRef';
+import { BORDER_STYLE } from './PrettyDecentTableBtn/constants';
 import { useTableContext } from './PrettyDecentTableBtn/hooks';
 
 export const StyledTd = styled.td`
     min-width: 100px;
     padding: 4px;
     min-height: 20px;
-    /* flex-direction: column; */
-    /* height: 75px; */
-    /* border: 1px solid #eee; */
-    /* border: none; */
 `;
 
 type PrettyDecentTableCellProps = {
@@ -31,7 +24,8 @@ export const PrettyDecentTableCell = forwardRef(
             setState && setState((ps) => ({ ...ps, openControls: true }));
         }, []);
         useEffect(() => {
-            setState && setState((ps) => ({ ...ps, borderStyle: cellRef?.current?.style.border }));
+            const borderRef = cellRef?.current?.style.border;
+            setState && setState((ps) => ({ ...ps, borderStyle: borderRef !== '' ? borderRef : BORDER_STYLE }));
         }, [cellRef]);
         return (
             <StyledTd
