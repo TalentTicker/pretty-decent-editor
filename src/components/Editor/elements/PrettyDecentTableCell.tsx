@@ -26,24 +26,17 @@ type PrettyDecentTableCellProps = {
 export const PrettyDecentTableCell = forwardRef(
     ({ children, ...others }: PrettyDecentTableCellProps, ref: ForwardedRef<HTMLTableCellElement>): JSX.Element => {
         const { state, setState } = useTableContext();
-        const border = state.border ? '1px solid #eee' : 'none';
-        const [borderState, setBorderState] = useState(border);
-
         const cellRef = useThreadedRef<HTMLTableCellElement>(ref);
         const openControls = useCallback(() => {
             setState && setState((ps) => ({ ...ps, openControls: true }));
         }, []);
-
         useEffect(() => {
-            const newBorder = cellRef.current?.style.border ?? state.border ? border : 'none';
-            setBorderState(newBorder);
-            setState && setState((ps) => ({ ...ps, borderStyle: newBorder }));
-        }, [cellRef, state.border]);
-
+            setState && setState((ps) => ({ ...ps, borderStyle: cellRef?.current?.style.border }));
+        }, [cellRef]);
         return (
             <StyledTd
                 //@ts-ignore
-                style={{ lineHeight: 0.5, border: borderState }}
+                style={{ lineHeight: 0.5, border: state.borderStyle }}
                 onClick={openControls}
                 {...others}
                 ref={cellRef}
