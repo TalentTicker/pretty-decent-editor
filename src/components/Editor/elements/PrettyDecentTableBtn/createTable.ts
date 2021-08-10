@@ -1,6 +1,5 @@
 import { isBlockActive } from 'components/Editor/elements/PrettyDecentButton';
 import { Transforms } from 'slate';
-import { jsx } from 'slate-hyperscript';
 import { ReactEditor } from 'slate-react';
 import { PrettyDecentChildren, PrettyDecentEditor, PrettyDecentElement } from '../../../../types';
 
@@ -30,7 +29,7 @@ export const createTable = ({ editor, cols, rows, border }: CreateTableProps): v
         children: rowData,
     };
     if (isActive) {
-        Transforms.insertNodes(editor, jsx('element', undefined, [{ type: 'block', children: [{ text: '' }] }]));
+        Transforms.insertNodes(editor, [table, { type: 'paragraph', children: [{ text: '' }] }]);
     } else {
         ReactEditor.focus(editor);
         Transforms.insertNodes(editor, table);

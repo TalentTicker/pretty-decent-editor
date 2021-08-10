@@ -31,7 +31,7 @@ export const addColumn = (editor: PrettyDecentEditor) => {
 
                 Transforms.insertNodes<PrettyDecentElement>(
                     editor,
-                    [{ type: 'table-cell', children: [{ text: '' }] }],
+                    [{ type: 'table-cell', children: [{ type: 'paragraph', children: [{ text: '' }] }] }],
                     {
                         at: newCellPath,
                         select: rowIdx === currentRowIdx,

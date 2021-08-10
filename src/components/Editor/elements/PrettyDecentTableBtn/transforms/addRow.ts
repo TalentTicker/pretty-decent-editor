@@ -21,7 +21,7 @@ export const addRow = (editor: PrettyDecentEditor) => {
                         type: 'table-row',
                         children: Array.from({ length: currentRowElem?.children?.length ?? 0 }, () => ({
                             type: 'table-cell',
-                            children: [{ text: '' }],
+                            children: [{ type: 'paragraph', children: [{ text: '' }] }],
                         })),
                     },
                 ],
