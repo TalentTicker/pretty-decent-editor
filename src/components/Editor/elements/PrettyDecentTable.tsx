@@ -18,6 +18,7 @@ export const PrettyDecentTable = forwardRef(
         useClickAway(tableRef, () => {
             setState && setState((ps) => ({ ...ps, openControls: false }));
         });
+
         return (
             <div ref={tableRef}>
                 <TableControls />

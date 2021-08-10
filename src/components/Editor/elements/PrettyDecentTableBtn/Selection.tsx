@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSlate } from 'slate-react';
 import styled from 'styled-components';
+import { BORDER_STYLE } from './constants';
 import { createTable } from './createTable';
 import { useTableContext } from './hooks';
 
@@ -44,15 +45,13 @@ type SelectionProps = {
 export const Selection = ({ setClose, ...others }: SelectionProps): JSX.Element => {
     const [size, setSize] = useState(initState);
     const editor = useSlate();
-    const { setState } = useTableContext();
     const handleHover = (i: number, j: number) => () => {
         setSize({ cols: j + 1, rows: i + 1 });
     };
     const handleLeave = () => setSize(initState);
 
     const handleSubmit = () => {
-        createTable({ editor, rows: size.rows, cols: size.cols });
-        setState && setState((ps) => ({ ...ps, openControls: true, border: true, borderStyle: '1px solid #eee' }));
+        createTable({ editor, rows: size.rows, cols: size.cols, border: BORDER_STYLE });
         setClose(true);
     };
     return (

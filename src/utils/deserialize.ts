@@ -28,7 +28,7 @@ const ELEMENT_TAGS = {
     DIV: () => ({ type: 'block' }),
     TABLE: () => ({ type: 'table' }),
     TR: () => ({ type: 'table-row' }),
-    TD: (el?: HTMLElement & ChildNode) => ({ type: 'table-cell', style: el?.getAttribute('style') }),
+    TD: (el?: HTMLElement & ChildNode) => ({ type: 'table-cell', border: el?.style.border }),
 };
 
 // COMPAT: `B` is omitted here because Google Docs uses `<b>` in weird ways.

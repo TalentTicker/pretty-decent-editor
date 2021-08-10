@@ -23,7 +23,11 @@ export const PrettyDecentElements = ({ attributes, children, element }: RenderEl
         case 'table-row':
             return <PrettyDecentTableRow {...attributes}>{children}</PrettyDecentTableRow>;
         case 'table-cell':
-            return <PrettyDecentTableCell {...attributes}>{children}</PrettyDecentTableCell>;
+            return (
+                <PrettyDecentTableCell {...attributes} border={element.border}>
+                    {children}
+                </PrettyDecentTableCell>
+            );
         case 'block-quote':
             return <PrettyDecentBlockQuote {...attributes}>{children}</PrettyDecentBlockQuote>;
         case 'bulleted-list':

@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 import { useState } from 'react';
+import { BORDER_STYLE } from './constants';
 
 export type TableContextType = {
     state: TableState;

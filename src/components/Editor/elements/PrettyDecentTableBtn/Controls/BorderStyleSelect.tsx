@@ -22,7 +22,7 @@ export const BorderStyleSelect = () => {
             },
             {
                 match: matchCells,
-                at: [],
+                at: editor?.selection ?? [],
             },
         );
     };

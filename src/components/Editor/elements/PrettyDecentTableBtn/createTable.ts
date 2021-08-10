@@ -8,9 +8,10 @@ type CreateTableProps = {
     editor: PrettyDecentEditor;
     cols: number;
     rows: number;
+    border: string;
 };
 
-export const createTable = ({ editor, cols, rows }: CreateTableProps): void => {
+export const createTable = ({ editor, cols, rows, border }: CreateTableProps): void => {
     const isActive = isBlockActive(editor, 'table');
     // create Table Node
     const rowData = Array.from({ length: rows }, () => ({
@@ -18,7 +19,7 @@ export const createTable = ({ editor, cols, rows }: CreateTableProps): void => {
         children: Array.from({ length: cols }, () => ({
             type: 'table-cell',
             style: {
-                border: '1px solid #eee',
+                border,
             },
             children: [{ type: 'block', children: [{ type: 'paragraph', children: [{ text: '' }] }] }],
         })),
