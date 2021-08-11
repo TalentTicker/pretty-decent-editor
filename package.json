@@ -1,6 +1,6 @@
 {
   "name": "@talentticker/pretty-decent-editor",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "description": "a pretty decent editor",
   "main": "./dist/pretty-decent-editor.umd.js",
   "module": "./dist/pretty-decent-editor.es.js",
@@ -13,7 +13,10 @@
   ],
   "exports": {
     ".": {
-      "import": ["./dist/pretty-decent-editor.es.js", "./dist/style.css"],
+      "import": [
+        "./dist/pretty-decent-editor.es.js",
+        "./dist/style.css"
+      ],
       "require": "./dist/pretty-decent-editor.umd.js"
     }
   },
