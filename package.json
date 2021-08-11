@@ -9,7 +9,7 @@
   "author": "Morgan Parry <m.parry@talentticker.ai>",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist/**/*"
   ],
   "exports": {
     ".": {
