@@ -13,7 +13,7 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/pretty-decent-editor.es.js",
+      "import": ["./dist/pretty-decent-editor.es.js", "./dist/style.css"],
       "require": "./dist/pretty-decent-editor.umd.js"
     }
   },
